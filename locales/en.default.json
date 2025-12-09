@@ -1,4 +1,14 @@
 {
+  "a11y": {
+    "open_cart": "Open cart",
+    "footer_nav": "Footer navigation",
+    "home_link": "Go to the homepage",
+    "main_nav": "Main navigation menu",
+    "open_menu": "Open menu",
+    "swiper_prev": "Button to scroll carousel backward",
+    "swiper_next": "Button to scroll carousel forward",
+    "product_image": "Product image"
+  },
   "404": {
     "title": "404",
     "not_found": "Page not found.",
@@ -48,5 +58,11 @@
     "submit": "Search",
     "no_results_html": "No results found for {{ terms }}",
     "results_for_html": "{{ count }} results found for {{ terms }}"
+  },
+  "footer": {
+    "copyright": "All rights reserved.",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookie Policy"
   }
 }

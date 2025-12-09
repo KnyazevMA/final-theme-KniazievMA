@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.17",
+    "tailwindcss": "^4.1.17"
+  },
+  "scripts": {
+    "dev:css": "tailwindcss -i ./src/css/tailwind.css -o ./assets/main.css --watch",
+    "build:css": "tailwindcss -i ./src/css/tailwind.css -o ./assets/main.min.css --minify",
+    "build:js": "terser ./src/js/global.js -o ./assets/global.min.js",
+    "dev:shopify": "shopify theme dev -s ferher-my.myshopify.com",
+    "dev": "concurrently -k -n TW,SHOP -c green,cyan \"npm run dev:css\" \"npm run dev:shopify\"",
+    "build": "npm run build:css && npm run build:js"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "terser": "^5.44.1"
+  }
+}
