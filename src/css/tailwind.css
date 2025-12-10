@@ -1,1 +1,28 @@
 @import "tailwindcss" prefix(tw);
+
+@theme {
+    /* ===== COLORS ===== */
+  --color-gray-700: #737373;
+  --color-gray-300: #CACACB;
+  --color-gray-200: #EBEBEB;
+  --color-gray-100: #F5F5F5;
+
+    /* ===== TEXT STYLES ===== */
+    /* H1 */
+    --text-h1: 48px;
+    --text-h1--mobile: 30px;
+    --leading-h1: 48px;
+    --leading-h1--mobile: 36px;
+
+    /* H2 */
+    --text-h2: 30px;
+    --text-h2--mobile: 24px;
+    --leading-h2: 36px;
+    --leading-h2--mobile: 32px;
+
+    /* Body */
+    --text-body-lg: 16px;
+    --leading-body-lg: 24px;
+    --text-body-md: 14px;
+    --leading-body-md: 20px;
+}

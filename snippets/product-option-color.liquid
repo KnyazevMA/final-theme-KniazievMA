@@ -1,0 +1,71 @@
+{% assign related_colors = product.metafields.custom.related_colors.value %}
+
+{% if related_colors != blank %}
+  <fieldset class="tw:flex tw:gap-2 tw:mt-4 block-{{ block.id }}" data-color-selector>
+    {% if block.settings.show_color_label %}
+      <legend class="tw-mb-2!">{{ legend }}</legend>
+    {% endif %}
+    {% for item in related_colors %}
+      {% assign p = item | product %}
+
+      {% if p.featured_image %}
+        {% assign is_active = false %}
+        {% if p.handle == product.handle %}
+          {% assign is_active = true %}
+        {% endif %}
+
+        <button
+          type="button"
+          class="
+            tw:w-22 tw:h-22 tw:rounded-lg tw:p-0 tw:cursor-pointer
+            hover:tw:border-black tw:overflow-hidden
+
+            {% if is_active %}
+              tw:border-black tw:border
+            {% endif %}
+          "
+          data-product-handle="{{ p.handle }}"
+        >
+          {{ p.featured_image | image_url: width: 88 | image_tag: alt: p.title }}
+        </button>
+      {% endif %}
+    {% endfor %}
+  </fieldset>
+
+  <script>
+    (() => {
+      const selector = document.querySelector('[data-color-selector]');
+      if (!selector) return;
+
+      selector.addEventListener('click', async (e) => {
+        const btn = e.target.closest('button[data-product-handle]');
+        if (!btn) return;
+
+        const handle = btn.dataset.productHandle;
+
+        // 1. Обновляем URL без перезагрузки
+        window.history.pushState({}, '', `/products/${handle}`);
+
+        // 2. Делаем AJAX запрос секции product-detail
+        const url = `/products/${handle}?section_id=product-detail`;
+
+        try {
+          const res = await fetch(url);
+          const html = await res.text();
+
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+
+          const newSection = doc.querySelector('[data-section-id="product-detail"]');
+          const currentSection = document.querySelector('[data-section-id="product-detail"]');
+
+          if (newSection && currentSection) {
+            currentSection.innerHTML = newSection.innerHTML;
+          }
+        } catch (err) {
+          console.error('Color selector AJAX error:', err);
+        }
+      });
+    })();
+  </script>
+{% endif %}

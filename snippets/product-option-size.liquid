@@ -1,0 +1,43 @@
+{% assign sizes = product.metafields.custom.sizes.value %}
+
+{% if sizes != blank %}
+  <fieldset class="block-{{ block.id }}">
+    {% if block.settings.show_size_label %}
+      <legend class="tw:mb-3!">{{ label }}</legend>
+    {% endif %}
+
+    <div class="tw:grid tw:grid-cols-3 tw:gap-2">
+      {% for size in sizes %}
+        {% assign label = size.name %}
+        {% assign available = size.available %}
+        {% assign variant_id = size.variant_id %}
+
+        <label class="tw:cursor-pointer">
+          <input
+            type="radio"
+            name="size"
+            value="{{ label }}"
+            data-variant="{{ variant_id }}"
+            {% if forloop.first %}
+              checked
+            {% endif %}
+            class="tw:absolute tw:opacity-0 tw:size-0 peer"
+          >
+
+          <span
+            class="
+              tw:flex tw:items-center tw:justify-center
+              tw:border tw:rounded-lg tw:py-2
+
+              peer-hover:tw:border-black
+              peer-focus-visible:tw:border-black
+              peer-checked:tw:border-black
+            "
+          >
+            {{ label }}
+          </span>
+        </label>
+      {% endfor %}
+    </div>
+  </fieldset>
+{% endif %}
