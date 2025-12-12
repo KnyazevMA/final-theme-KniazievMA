@@ -12,9 +12,87 @@
     "main": {
       "type": "product",
       "settings": {}
+    },
+    "product_detail_iPy7cj": {
+      "type": "product-detail",
+      "blocks": {
+        "title_BLndgt": {
+          "type": "title",
+          "settings": {
+            "margin_top": 0,
+            "margin_bottom": 8
+          }
+        },
+        "description_DjcPUT": {
+          "type": "description",
+          "settings": {
+            "margin_top": 0,
+            "margin_bottom": 24
+          }
+        },
+        "price_mnPJAL": {
+          "type": "price",
+          "settings": {
+            "margin_top": 0,
+            "margin_bottom": 24
+          }
+        },
+        "color_tML8yN": {
+          "type": "color",
+          "settings": {
+            "margin_top": 0,
+            "margin_bottom": 24,
+            "show_color_label": true,
+            "color_label": "Select color:"
+          }
+        },
+        "size_3TVkzG": {
+          "type": "size",
+          "settings": {
+            "margin_top": 0,
+            "margin_bottom": 32,
+            "show_size_label": true,
+            "size_label": "Select Size:"
+          }
+        },
+        "quantity_L7B9PF": {
+          "type": "quantity",
+          "settings": {
+            "margin_top": 0,
+            "margin_bottom": 8
+          }
+        },
+        "add_to_cart_8THmER": {
+          "type": "add_to_cart",
+          "settings": {
+            "margin_top": 0,
+            "margin_bottom": 24
+          }
+        }
+      },
+      "block_order": [
+        "title_BLndgt",
+        "description_DjcPUT",
+        "price_mnPJAL",
+        "color_tML8yN",
+        "size_3TVkzG",
+        "quantity_L7B9PF",
+        "add_to_cart_8THmER"
+      ],
+      "name": "Product Detail Default",
+      "settings": {}
+    },
+    "product_recomendation_qwxwCU": {
+      "type": "product-recomendation",
+      "name": "Product recommendations",
+      "settings": {
+        "heading": "You may also like"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "product_detail_iPy7cj",
+    "product_recomendation_qwxwCU"
   ]
 }
