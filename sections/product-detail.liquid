@@ -1,9 +1,7 @@
-<section data-section-id="product-detail">
+<section data-section-id="{{ section.id }}" data-section-type="product-detail">
   <div class="page-width">
     <div class="tw:grid tw:grid-cols-2 tw:gap-15">
-      <div class="tw:flex tw:flex-row-reverse tw:gap-6">
-        {% render 'product-media', product: product %}
-      </div>
+      {% render 'product-media', product: product %}
       <div>
         {% for block in section.blocks %}
           {% case block.type %}
@@ -25,21 +23,22 @@
           {% for block in section.blocks %}
             {% case block.type %}
               {% when 'price' %}
-                {% if current_variant.compare_at_price > current_variant.price %}
-                  <div class="tw:flex tw:items-center tw:gap-1.5 block-{{ block.id }}">
-                    <span class="tw:text-body-lg tw:leading-body-lg tw:text-gray-700 tw:line-through">
-                      {{ current_variant.compare_at_price | money }}
-                    </span>
-                    <span class="tw:text-body-lg tw:leading-body-lg">
+                <div class="block-{{ block.id }}">
+                  {% if current_variant.compare_at_price > current_variant.price %}
+                    <div class="tw:flex tw:items-center tw:gap-1.5">
+                      <span class="tw:text-body-lg tw:leading-body-lg tw:text-gray-700 tw:line-through">
+                        {{ current_variant.compare_at_price | money }}
+                      </span>
+                      <span class="tw:text-body-lg tw:leading-body-lg">
+                        {{ current_variant.price | money }}
+                      </span>
+                    </div>
+                  {% else %}
+                    <span class="tw:text-body-lg tw:block tw:leading-body-lg">
                       {{ current_variant.price | money }}
                     </span>
-                  </div>
-                {% else %}
-                  <span class="tw:text-body-lg tw:leading-body-lg block-{{ block.id }}">
-                    {{ current_variant.price | money }}
-                  </span>
-                {% endif %}
-
+                  {% endif %}
+                </div>
               {% when 'color' %}
                 {% render 'product-option-color',
                   product: product,
@@ -69,6 +68,36 @@
 
           <input type="hidden" name="id" value="{{ current_variant.id }}">
         {%- endform -%}
+        <div class="tw:flex tw:flex-col tw:gap-6 tw:mb-8!">
+          <div class="tw:flex tw:flex-col tw:gap-3">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'shipping_info' %}
+                  {% assign info = block.settings.shipping_info %}
+
+                  {% if info %}
+                    <div class="tw:flex tw:items-center tw:gap-1.5 tw:text-body-md tw:text-black">
+                      {%- if info.icon != blank -%}
+                        <img
+                          src="{{ info.icon | image_url: width: 24 }}"
+                          width="24"
+                          height="24"
+                          alt=""
+                        >
+                      {%- endif -%}
+
+                      {{ info.text }}
+                    </div>
+                  {% endif %}
+              {% endcase %}
+            {% endfor %}
+          </div>
+          {% assign description = product.metafields.custom.product_description_text %}
+          <p class="tw:text-body-md tw:leading-body-md tw:text-gray-700">{{ description }}</p>
+        </div>
+        {% render 'product-accordion',
+          product: product,
+        %}
       </div>
     </div>
   </div>
@@ -302,6 +331,19 @@
           "step": 2,
           "unit": "px",
           "default": 24
+        }
+      ]
+    },
+    {
+      "type": "shipping_info",
+      "name": "Shipping Info",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "metaobject",
+          "id": "shipping_info",
+          "metaobject_type": "shipping_info",
+          "label": "Select info shipping"
         }
       ]
     }

@@ -9,7 +9,6 @@
     <div class="tw:grid tw:grid-cols-3 tw:gap-2">
       {% for size in sizes %}
         {% assign label = size.name %}
-        {% assign available = size.available %}
         {% assign variant_id = size.variant_id %}
 
         <label class="tw:cursor-pointer">
@@ -21,17 +20,17 @@
             {% if forloop.first %}
               checked
             {% endif %}
-            class="tw:absolute tw:opacity-0 tw:size-0 peer"
+            class="tw:sr-only tw:peer"
           >
 
           <span
             class="
               tw:flex tw:items-center tw:justify-center
-              tw:border tw:rounded-lg tw:py-2
-
-              peer-hover:tw:border-black
-              peer-focus-visible:tw:border-black
-              peer-checked:tw:border-black
+              tw:text-body-md tw:leading-body-md tw:text-black
+              tw:border tw:rounded-lg tw:border-gray-200 tw:p-4
+              tw:peer-hover:border-black
+              tw:peer-focus-visible:border-black
+              tw:peer-checked:border-black
             "
           >
             {{ label }}

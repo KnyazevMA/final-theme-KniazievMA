@@ -8,29 +8,28 @@
       assign color_option_index = forloop.index0
     endif
   endfor
+
+  assign img_value = value
+  if current_variant.featured_image
+    assign img_value = current_variant.featured_image
+  elsif product.featured_image
+    assign img_value = product.featured_image
+  endif
 %}
 
-<div class="tw:flex tw:flex-row-reverse tw:gap-6">
+<div class="tw:flex tw:flex-row-reverse tw:gap-6 tw:max-w-[648px]" data-gallery>
   <div
     class="
       tw:relative tw:aspect-square tw:max-w-full tw:h-auto
       tw:rounded-lg tw:overflow-hidden tw:max-h-[536px]
     "
   >
-    {% if current_variant.featured_image %}
-      {% render 'image',
-        image: current_variant.featured_image,
-        width: 800,
-        class: 'tw:block tw:w-full tw:h-full tw:object-cover',
-        alt: product.title
-      %}
-    {% elsif product.featured_image %}
-      {% render 'image',
-        image: product.featured_image,
-        width: 800,
-        class: 'tw:block tw:w-full tw:h-full tw:object-cover',
-        alt: product.title
-      %}
+    {% if img_value %}
+      {{
+        img_value
+        | image_url: width: 536
+        | image_tag: alt: product.title, class: 'tw:block tw:w-full tw:h-full tw:object-cover', data-big: ''
+      }}
     {% else %}
       {{ 'image' | placeholder_svg_tag }}
     {% endif %}
@@ -60,14 +59,32 @@
                 <button
                   type="button"
                   class="
-                    tw:w-[88px] tw:h-[88px] tw:rounded-lg tw:overflow-hidden
+                    tw:w-22 tw:h-22 tw:rounded-lg tw:overflow-hidden tw:relative
                     tw:cursor-pointer tw:bg-transparent tw:flex-none
                     tw:hover:border tw:hover:border-black/30
                     tw:focus-visible:outline-none
+                    thumb
                   "
                   data-large="{{ v.featured_image | image_url: width: 800 }}"
+                  data-thumb="{{ forloop.index0 }}"
                 >
                   {% render 'image', image: v.featured_image, width: 88, class: 'tw:w-full tw:h-full tw:object-cover' %}
+
+                  {% assign big_url = img_value | image_url: width: 800 %}
+                  {% assign thumb_url = v.featured_image | image_url: width: 800 %}
+                  {% assign is_active = false %}
+                  {% if big_url == thumb_url %}
+                    {% assign is_active = true %}
+                  {% endif %}
+
+                  <span
+                    data-active="{{ is_active }}"
+                    class="
+                      tw:absolute tw:inset-0 tw:bg-black/20 tw:z-10 tw:w-full tw:h-full
+                      tw:opacity-0
+                      tw:data-active:opacity-100
+                    "
+                  ></span>
                 </button>
                 {%- assign count = count | plus: 1 -%}
                 {%- if count >= 5 -%}{% break %}{%- endif -%}
@@ -88,13 +105,31 @@
               <button
                 type="button"
                 class="
-                  tw:w-[88px] tw:h-[88px] tw:rounded-lg tw:overflow-hidden
+                  tw:w-22 tw:h-22 tw:rounded-lg tw:overflow-hidden tw:relative
                   tw:cursor-pointer tw:flex-none
                   tw:hover:border tw:hover:border-black/30
+                  thumb
                 "
                 data-large="{{ m | image_url: width: 800 }}"
+                data-thumb="{{ forloop.index0 }}"
               >
                 {{ m | image_url: width: 88 | image_tag }}
+
+                {% assign big_url = img_value | image_url: width: 800 %}
+                {% assign thumb_url = m | image_url: width: 800 %}
+                {% assign is_active = false %}
+                {% if big_url == thumb_url %}
+                  {% assign is_active = true %}
+                {% endif %}
+
+                <span
+                  data-active="{{ is_active }}"
+                  class="
+                    tw:absolute tw:inset-0 tw:bg-black/20 tw:z-10 tw:w-full tw:h-full
+                    tw:opacity-0
+                    tw:data-active:opacity-100
+                  "
+                ></span>
               </button>
               {% assign shown = shown | plus: 1 %}
             {% endif %}

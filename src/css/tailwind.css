@@ -1,11 +1,14 @@
 @import "tailwindcss" prefix(tw);
 
+@custom-variant data-active (&[data-active="true"]);
+
 @theme {
     /* ===== COLORS ===== */
-  --color-gray-700: #737373;
-  --color-gray-300: #CACACB;
-  --color-gray-200: #EBEBEB;
-  --color-gray-100: #F5F5F5;
+    --color-gray-700: #737373;
+    --color-gray-300: #CACACB;
+    --color-gray-200: #EBEBEB;
+    --color-gray-100: #F5F5F5;
+    --color-black: #111111;
 
     /* ===== TEXT STYLES ===== */
     /* H1 */

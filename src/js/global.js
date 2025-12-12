@@ -1,3 +1,66 @@
+class ColorSelector {
+    constructor(root) {
+        this.root = root;
+        this.sectionRoot = this.root.closest('[data-section-id]');
+        this.sectionId = this.sectionRoot ? this.sectionRoot.dataset.sectionId : null;
+
+        if (!this.sectionId) return;
+
+        this.handleClick = this.handleClick.bind(this);
+        this.root.addEventListener('click', this.handleClick);
+    }
+
+    handleClick(event) {
+        const btn = event.target.closest('[data-product-handle]');
+        if (!btn) return;
+
+        event.preventDefault();
+
+        const handle = btn.dataset.productHandle;
+        if (!handle) return;
+
+        const requestUrl = `/products/${handle}?section_id=${this.sectionId}`;
+
+        history.pushState({}, '', `/products/${handle}`);
+
+        fetch(requestUrl)
+            .then(res => res.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                const newSection = doc.querySelector(`[data-section-id="${this.sectionId}"]`);
+                const currentSection = this.sectionRoot;
+
+                if (!newSection || !currentSection) return;
+
+                currentSection.innerHTML = newSection.innerHTML;
+
+                const breadcrumbSectionId = "breadcrumbs";
+
+                const newBreadcrumbs = doc.querySelector(`[data-section-id="${breadcrumbSectionId}"]`);
+                const currentBreadcrumbs = document.querySelector(`[data-section-id="${breadcrumbSectionId}"]`);
+
+                if (newBreadcrumbs && currentBreadcrumbs) {
+                    currentBreadcrumbs.innerHTML = newBreadcrumbs.innerHTML;
+                }
+
+                document.querySelectorAll('form#ProductForm').forEach(form => {
+                    new ProductForm(form);
+                });
+
+                document.querySelectorAll('[data-color-selector]').forEach(el => {
+                    new ColorSelector(el);
+                });
+
+                document.querySelectorAll('[data-gallery]').forEach(el => {
+                    new ProductGallery(el);
+                });
+            })
+            .catch(() => { });
+    }
+}
+
 class ProductForm {
     constructor(form) {
         this.form = form;
@@ -30,7 +93,95 @@ class ProductForm {
     }
 }
 
+class ProductGallery {
+    constructor(element) {
+        this.root = element;
+        this.bigImage = this.root.querySelector('[data-big]');
+        this.thumbs = Array.from(this.root.querySelectorAll('.thumb'));
+
+        this.initEvents();
+    }
+
+    initEvents() {
+        if (!this.thumbs.length) return;
+
+        this.thumbs.forEach((thumb) => {
+            thumb.addEventListener('click', () => {
+                const url = thumb.dataset.large;
+                if (!url) return;
+
+                this.updateBigImage(url);
+                this.updateActive(thumb);
+            });
+        });
+    }
+
+    updateBigImage(url) {
+        if (!this.bigImage) return;
+
+        if (this.bigImage.tagName === 'IMG') {
+            this.bigImage.src = url;
+            this.bigImage.srcset = url;
+        } else {
+            const img = this.bigImage.querySelector('img');
+            if (img) {
+                img.src = url;
+                img.srcset = url;
+            }
+        }
+    }
+
+    updateActive(selectedThumb) {
+        this.thumbs.forEach((thumb) => {
+            const overlay = thumb.querySelector('[data-active]');
+            if (overlay) overlay.dataset.active = 'false';
+        });
+
+        const selectedOverlay = selectedThumb.querySelector('[data-active]');
+        if (selectedOverlay) selectedOverlay.dataset.active = 'true';
+    }
+}
+
+class ProductAccordion {
+    constructor(root) {
+        this.root = root;
+        this.items = Array.from(root.querySelectorAll('[data-item]'));
+
+        this.init();
+    }
+
+    init() {
+        this.items.forEach(item => {
+            const btn = item.querySelector('[data-button]');
+            const content = item.querySelector('[data-content]');
+            if (!btn || !content) return;
+
+            btn.addEventListener('click', () => {
+                const isOpen = content.dataset.active === "true";
+
+
+                // Закриваємо всі
+                this.items.forEach(i => {
+                    const c = i.querySelector('[data-content]');
+                    if (c) c.dataset.active = "false";
+
+                    const icon = i.querySelector('[data-icon]');
+                    if (icon) icon.dataset.active = "false";
+                });
+
+                // Якщо елемент був закритий — відкриваємо
+                if (!isOpen) {
+                    content.dataset.active = "true";
+                    item.querySelector('[data-icon]').dataset.active = "true";
+                }
+            });
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('ProductForm');
-    if (form) new ProductForm(form);
+    document.querySelectorAll('form#ProductForm').forEach(f => new ProductForm(f));
+    document.querySelectorAll('[data-color-selector]').forEach(r => new ColorSelector(r));
+    document.querySelectorAll('[data-gallery]').forEach((g) => new ProductGallery(g));
+    document.querySelectorAll('[data-faq]').forEach(el => new ProductAccordion(el));
 });

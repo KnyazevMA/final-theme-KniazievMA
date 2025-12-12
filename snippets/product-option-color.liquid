@@ -3,15 +3,17 @@
 {% if related_colors != blank %}
   <fieldset class="tw:flex tw:gap-2 tw:mt-4 block-{{ block.id }}" data-color-selector>
     {% if block.settings.show_color_label %}
-      <legend class="tw-mb-2!">{{ legend }}</legend>
+      <legend class="tw:mb-2! tw:text-body-md tw:leading-body-md">{{ legend }}</legend>
     {% endif %}
     {% for item in related_colors %}
       {% assign p = item | product %}
 
       {% if p.featured_image %}
         {% assign is_active = false %}
+        {% assign disabled = false %}
         {% if p.handle == product.handle %}
           {% assign is_active = true %}
+          {% assign disabled = true %}
         {% endif %}
 
         <button
@@ -24,6 +26,9 @@
               tw:border-black tw:border
             {% endif %}
           "
+          {% if disabled %}
+            disabled
+          {% endif %}
           data-product-handle="{{ p.handle }}"
         >
           {{ p.featured_image | image_url: width: 88 | image_tag: alt: p.title }}
@@ -31,41 +36,4 @@
       {% endif %}
     {% endfor %}
   </fieldset>
-
-  <script>
-    (() => {
-      const selector = document.querySelector('[data-color-selector]');
-      if (!selector) return;
-
-      selector.addEventListener('click', async (e) => {
-        const btn = e.target.closest('button[data-product-handle]');
-        if (!btn) return;
-
-        const handle = btn.dataset.productHandle;
-
-        // 1. Обновляем URL без перезагрузки
-        window.history.pushState({}, '', `/products/${handle}`);
-
-        // 2. Делаем AJAX запрос секции product-detail
-        const url = `/products/${handle}?section_id=product-detail`;
-
-        try {
-          const res = await fetch(url);
-          const html = await res.text();
-
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-
-          const newSection = doc.querySelector('[data-section-id="product-detail"]');
-          const currentSection = document.querySelector('[data-section-id="product-detail"]');
-
-          if (newSection && currentSection) {
-            currentSection.innerHTML = newSection.innerHTML;
-          }
-        } catch (err) {
-          console.error('Color selector AJAX error:', err);
-        }
-      });
-    })();
-  </script>
 {% endif %}
