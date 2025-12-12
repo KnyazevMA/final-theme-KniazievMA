@@ -1,0 +1,40 @@
+{% assign related_colors = product.metafields.custom.related_colors.value %}
+
+{% if related_colors != blank %}
+  <fieldset class="tw:flex tw:gap-2 tw:mt-4 block-{{ block.id }}" data-color-selector>
+    {% if block.settings.show_color_label %}
+      <legend class="tw:mb-2! tw:text-body-md tw:leading-body-md">{{ legend }}</legend>
+    {% endif %}
+    {% for item in related_colors %}
+      {% assign p = item | product %}
+
+      {% if p.featured_image %}
+        {% assign is_active = false %}
+        {% assign disabled = false %}
+        {% if p.handle == product.handle %}
+          {% assign is_active = true %}
+          {% assign disabled = true %}
+        {% endif %}
+
+        <button
+          type="button"
+          class="
+            tw:w-22 tw:h-22 tw:rounded-lg tw:p-0 tw:cursor-pointer
+            tw:border tw:border-transparent
+            tw:hover:border-black tw:overflow-hidden
+            {% if is_active %}
+              tw:border-black!
+              tw:cursor-auto!
+            {% endif %}
+          "
+          {% if disabled %}
+            disabled
+          {% endif %}
+          data-product-handle="{{ p.handle }}"
+        >
+          {{ p.featured_image | image_url: width: 88 | image_tag: alt: p.title }}
+        </button>
+      {% endif %}
+    {% endfor %}
+  </fieldset>
+{% endif %}

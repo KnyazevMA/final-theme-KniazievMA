@@ -1,0 +1,21 @@
+{%- assign variant_id = selected_variant_id -%}
+
+<div class="block-{{ block.id }}">
+  <button
+    type="submit"
+    class="
+      tw:w-full tw:bg-black tw:text-white tw:py-3 tw:rounded-lg
+      tw:text-body-lg tw:leading-body-lg tw:cursor-pointer
+      tw:hover:bg-gray-700 tw:focus-visible:bg-gray-700 tw:transition
+      tw:disabled:cursor-auto
+    "
+    {% if variant_id == blank %}
+      disabled
+      class="tw:opacity-50 tw:cursor-not-allowed"
+    {% endif %}
+  >
+    Add to bag
+  </button>
+
+  <div class="tw:hidden" id="add-to-cart-error"></div>
+</div>

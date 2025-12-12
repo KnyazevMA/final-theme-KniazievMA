@@ -1,0 +1,366 @@
+<section data-section-id="{{ section.id }}" data-section-type="product-detail">
+  <div class="page-width">
+    <div class="tw:grid tw:grid-cols-2 tw:gap-15">
+      {% render 'product-media', product: product %}
+      <div>
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'title' %}
+              <h1 class="tw:mb-2 tw:text-h2 tw:leading-h2 block-{{ block.id }}">
+                {{ product.title }}
+              </h1>
+
+            {% when 'description' %}
+              <p class="tw:text-gray-700 tw:text-body-md tw:leading-body-md tw:mb-6 block-{{ block.id }}">
+                {{ product.description | strip_html | truncate: 300 }}
+              </p>
+          {% endcase %}
+        {% endfor %}
+
+        {%- form 'product', product, id: 'ProductForm' -%}
+          {% assign current_variant = product.selected_or_first_available_variant %}
+
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'price' %}
+                <div class="block-{{ block.id }}">
+                  {% if current_variant.compare_at_price > current_variant.price %}
+                    <div class="tw:flex tw:items-center tw:gap-1.5">
+                      <span class="tw:text-body-lg tw:leading-body-lg tw:text-gray-700 tw:line-through">
+                        {{ current_variant.compare_at_price | money }}
+                      </span>
+                      <span class="tw:text-body-lg tw:leading-body-lg">
+                        {{ current_variant.price | money }}
+                      </span>
+                    </div>
+                  {% else %}
+                    <span class="tw:text-body-lg tw:block tw:leading-body-lg">
+                      {{ current_variant.price | money }}
+                    </span>
+                  {% endif %}
+                </div>
+              {% when 'color' %}
+                {% render 'product-option-color',
+                  product: product,
+                  block: block,
+                  legend: block.settings.color_label,
+                  show_color_label: block.settings.show_color_label
+                %}
+
+              {% when 'size' %}
+                {% render 'product-option-size',
+                  product: product,
+                  block: block,
+                  label: block.settings.size_label,
+                  show_size_label: block.settings.show_size_label
+                %}
+{% comment %} 
+              {% when 'quantity' %}
+                {% render 'quantity' %} {% endcomment %}
+
+              {% when 'add_to_cart' %}
+                {% render 'product-add-to-cart',
+                  selected_variant_id: product.selected_or_first_available_variant.id,
+                  block: block
+                %}
+            {% endcase %}
+          {% endfor %}
+
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+        {%- endform -%}
+        <div class="tw:flex tw:flex-col tw:gap-6 tw:mb-8!">
+          <div class="tw:flex tw:flex-col tw:gap-3">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'shipping_info' %}
+                  {% assign info = block.settings.shipping_info %}
+
+                  {% if info %}
+                    <div class="tw:flex tw:items-center tw:gap-1.5 tw:text-body-md tw:text-black">
+                      {%- if info.icon != blank -%}
+                        <img
+                          src="{{ info.icon | image_url: width: 24 }}"
+                          width="24"
+                          height="24"
+                          alt=""
+                        >
+                      {%- endif -%}
+
+                      {{ info.text }}
+                    </div>
+                  {% endif %}
+              {% endcase %}
+            {% endfor %}
+          </div>
+          {% assign description = product.metafields.custom.product_description_text %}
+          <p class="tw:text-body-md tw:leading-body-md tw:text-gray-700">{{ description }}</p>
+        </div>
+        {% render 'product-accordion',
+          product: product,
+        %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- style -%}
+  {% for block in section.blocks %}
+    .block-{{ block.id }} {
+      {% if block.settings.margin_top %}
+        margin-top: {{ block.settings.margin_top }}px;
+      {% endif %}
+      {% if block.settings.margin_bottom %}
+        margin-bottom: {{ block.settings.margin_bottom }}px;
+      {% endif %}
+    }
+  {% endfor %}
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Product Detail",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margin bottom",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 8
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margin bottom",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 24
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margin bottom",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 24
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "name": "Color selector",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margin bottom",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 24
+        },
+        {
+          "type": "checkbox",
+          "id": "show_color_label",
+          "label": "Show color label?",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "color_label",
+          "label": "Color label",
+          "default": "Select color:"
+        }
+      ]
+    },
+    {
+      "type": "size",
+      "name": "Size selector",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margin bottom",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 32
+        },
+        {
+          "type": "checkbox",
+          "id": "show_size_label",
+          "label": "Show size label?",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "size_label",
+          "label": "Size label",
+          "default": "Select Size:"
+        }
+      ]
+    },
+    {
+      "type": "quantity",
+      "name": "Quantity",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margin bottom",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 8
+        }
+      ]
+    },
+    {
+      "type": "add_to_cart",
+      "name": "Add to Cart button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margin bottom",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 24
+        }
+      ]
+    },
+    {
+      "type": "shipping_info",
+      "name": "Shipping Info",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "metaobject",
+          "id": "shipping_info",
+          "metaobject_type": "shipping_info",
+          "label": "Select info shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Detail Default",
+      "blocks": [
+        { "type": "title" },
+        { "type": "description" },
+        { "type": "price" },
+        { "type": "color" },
+        { "type": "size" },
+        { "type": "quantity" },
+        { "type": "add_to_cart" }
+      ]
+    }
+  ]
+}
+{% endschema %}

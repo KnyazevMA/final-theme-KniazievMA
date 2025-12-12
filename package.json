@@ -4,8 +4,8 @@
     "tailwindcss": "^4.1.17"
   },
   "scripts": {
-    "dev:css": "tailwindcss -i ./src/css/tailwind.css -o ./assets/main.css --watch",
-    "build:css": "tailwindcss -i ./src/css/tailwind.css -o ./assets/main.min.css --minify",
+    "dev:css": "tailwindcss -i ./src/css/tailwind-input.css -o ./assets/main.css --watch",
+    "build:css": "tailwindcss -i ./src/css/tailwind-input.css -o ./assets/main.min.css --minify",
     "build:js": "terser ./src/js/global.js -o ./assets/global.min.js",
     "dev:shopify": "shopify theme dev -s ferher-my.myshopify.com",
     "dev": "concurrently -k -n TW,SHOP -c green,cyan \"npm run dev:css\" \"npm run dev:shopify\"",
