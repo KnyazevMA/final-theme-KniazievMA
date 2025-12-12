@@ -64,5 +64,12 @@
     "terms": "Terms of Use",
     "privacy": "Privacy Policy",
     "cookies": "Cookie Policy"
+  },
+  "product": {
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "add_to_cart": "Add to cart",
+    "quantity": "Quantity",
+    "view_details": "View details"
   }
 }

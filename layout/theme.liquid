@@ -18,11 +18,14 @@
     {% endunless %}
 
     <script src="{{ 'global.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
 
     {% # Load and preload the critical CSS %}
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
-    {{ 'main.css' | asset_url | stylesheet_tag: preload: true }}
-    {{ 'main.min.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {{ 'main.css' | asset_url | stylesheet_tag }}
+    {{ 'main.min.css' | asset_url | stylesheet_tag }}
+
     {% # Social, title, etc. %}
     {% render 'meta-tags' %}
 
