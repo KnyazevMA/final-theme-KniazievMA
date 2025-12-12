@@ -1,0 +1,153 @@
+<div data-faq>
+  <ul class="tw:flex tw:flex-col tw:gap-2">
+    {% assign size_fit = product.metafields.custom.size_fit %}
+    {% if size_fit %}
+      <li class="tw:border tw:border-gray-200 tw:rounded-lg" data-item>
+        <button
+          class="tw:p-4 tw:w-full tw:flex tw:justify-between tw:cursor-pointer"
+          type="button"
+          data-button
+        >
+          <span class="tw:text-body-lg tw:leading-body-lg tw:text-black tw:uppercase"> SIZE & FIT </span>
+          <span
+            class="
+              tw:w-3.5 tw:h-3.5 tw:relative tw:block
+              tw:border tw:border-black tw:rounded-full
+            "
+          >
+            <span
+              class="
+                tw:w-px tw:h-2.5 tw:bg-black
+                tw:absolute tw:left-1/2 tw:top-1/2 tw:-translate-x-1/2 tw:-translate-y-1/2
+                tw:data-active:rotate-90
+                tw:transition-transform tw:duration-300
+              "
+              data-icon
+              data-active="false"
+            ></span>
+            <span
+              class="
+                                                                                                                 tw:w-2.5 tw:h-px tw:bg-black tw:absolute tw:left-1/2 tw:top-1/2 tw:-translate-x-1/2 tw:-translate-y-1/2
+              "
+            ></span>
+          </span>
+        </button>
+        <div
+          class="
+            tw:p-0
+            tw:text-body-md tw:leading-body-md tw:text-gray-700
+            tw:max-h-0 tw:overflow-hidden tw:opacity-0
+            tw:transition-all tw:duration-300
+            tw:data-active:max-h-[500px]
+            tw:data-active:opacity-100
+            tw:data-active:px-4 tw:data-active:pb-4
+          "
+          data-content
+          data-active="false"
+        >
+          {{ size_fit | metafield_tag }}
+        </div>
+      </li>
+    {% endif %}
+
+    {% assign notes = product.metafields.custom.product_notes %}
+    {% if notes %}
+      <li class="tw:border tw:border-gray-200 tw:rounded-lg" data-item>
+        <button
+          class="tw:p-4 tw:w-full tw:flex tw:justify-between tw:cursor-pointer"
+          type="button"
+          data-button
+        >
+          <span class="tw:text-body-lg tw:leading-body-lg tw:text-black tw:uppercase"> PRODUCT NOTES </span>
+          <span
+            class="
+              tw:w-3.5 tw:h-3.5 tw:relative tw:block
+              tw:border tw:border-black tw:rounded-full
+            "
+          >
+            <span
+              class="
+                tw:w-px tw:h-2.5 tw:bg-black
+                tw:absolute tw:left-1/2 tw:top-1/2 tw:-translate-x-1/2 tw:-translate-y-1/2
+                tw:data-active:rotate-90
+                tw:transition-transform tw:duration-300
+              "
+              data-icon
+              data-active="false"
+            ></span>
+            <span
+              class="
+                                                                                                                 tw:w-2.5 tw:h-px tw:bg-black tw:absolute tw:left-1/2 tw:top-1/2 tw:-translate-x-1/2 tw:-translate-y-1/2
+              "
+            ></span>
+          </span>
+        </button>
+        <div
+          class="
+            tw:p-0
+            tw:text-body-md tw:leading-body-md tw:text-gray-700
+            tw:max-h-0 tw:overflow-hidden tw:opacity-0
+            tw:transition-all tw:duration-300
+            tw:data-active:max-h-[500px]
+            tw:data-active:opacity-100
+            tw:data-active:px-4 tw:data-active:pb-4
+          "
+          data-content
+          data-active="false"
+        >
+          {{ notes | metafield_tag }}
+        </div>
+      </li>
+    {% endif %}
+
+    {% assign returns = product.metafields.custom.delivery_returns %}
+    {% if returns %}
+      <li class="tw:border tw:border-gray-200 tw:rounded-lg" data-item>
+        <button
+          class="tw:p-4 tw:w-full tw:flex tw:justify-between tw:cursor-pointer"
+          type="button"
+          data-button
+        >
+          <span class="tw:text-body-lg tw:leading-body-lg tw:text-black tw:uppercase"> DELIVERY & RETURNS </span>
+          <span
+            class="
+              tw:w-3.5 tw:h-3.5 tw:relative tw:block
+              tw:border tw:border-black tw:rounded-full
+            "
+          >
+            <span
+              class="
+                tw:w-px tw:h-2.5 tw:bg-black
+                tw:absolute tw:left-1/2 tw:top-1/2 tw:-translate-x-1/2 tw:-translate-y-1/2
+                tw:data-active:rotate-90
+                tw:transition-transform tw:duration-300
+              "
+              data-icon
+              data-active="false"
+            ></span>
+            <span
+              class="
+                tw:w-2.5 tw:h-px tw:bg-black tw:absolute tw:left-1/2 tw:top-1/2 tw:-translate-x-1/2 tw:-translate-y-1/2
+              "
+            ></span>
+          </span>
+        </button>
+        <div
+          class="
+            tw:p-0
+            tw:text-body-md tw:leading-body-md tw:text-gray-700
+            tw:max-h-0 tw:overflow-hidden tw:opacity-0
+            tw:transition-all tw:duration-300
+            tw:data-active:max-h-[500px]
+            tw:data-active:opacity-100
+            tw:data-active:px-4 tw:data-active:pb-4
+          "
+          data-content
+          data-active="false"
+        >
+          {{ returns | metafield_tag }}
+        </div>
+      </li>
+    {% endif %}
+  </ul>
+</div>

@@ -1,0 +1,117 @@
+<nav class="tw:mb-2!" aria-label="Breadcrumbs" data-section-id="breadcrumbs">
+  <div class="page-width">
+    <ul
+      class="
+        tw:flex tw:flex-nowrap tw:gap-4 tw:items-center         tw:text-body-md
+        tw:leading-body-md
+      "
+    >
+      <li
+        class="
+          tw:relative
+          tw:after:content-['/']
+          tw:after:absolute
+          tw:after:top-1/2
+          tw:after:-translate-y-1/2
+          tw:after:-right-3
+          tw:last:after:content-none
+          tw:last:select-none
+          tw:text-gray-700
+          tw:last:text-black
+        "
+      >
+        <a class="breadcrumbs__link" href="{{ routes.root_url }}">Home</a>
+      </li>
+
+      {%- if collection -%}
+        <li
+          class="
+              tw:relative
+              tw:after:content-['/']
+              tw:after:absolute
+              tw:after:top-1/2
+              tw:after:-translate-y-1/2
+              tw:after:-right-3
+              tw:last:after:content-none
+              tw:last:select-none
+            tw:text-gray-700
+            tw:last:text-black
+          "
+        >
+          <a href="{{ collection.url }}" class="breadcrumbs__link">
+            {{ collection.title }}
+          </a>
+        </li>
+      {%- endif -%}
+
+      {%- if product -%}
+        <li
+          class="
+            tw:relative
+            tw:after:content-['/']
+            tw:after:absolute
+            tw:after:top-1/2
+            tw:after:-translate-y-1/2
+            tw:after:-right-3
+            tw:last:after:content-none
+            tw:last:select-none
+            tw:text-gray-700
+            tw:last:text-black
+          "
+        >
+          {{ product.title }}
+        </li>
+      {%- elsif article -%}
+        <li
+          class="
+            tw:relative
+            tw:after:content-['/']
+            tw:after:absolute
+            tw:after:top-1/2
+            tw:after:-translate-y-1/2
+            tw:after:-right-3
+            tw:last:after:content-none
+            tw:last:select-none
+            tw:text-gray-700
+            tw:last:text-black
+          "
+        >
+          <a href="{{ blog.url }}" class="breadcrumbs__link">{{ blog.title }}</a>
+        </li>
+        <li
+          class="
+            tw:relative
+            tw:after:content-['/']
+            tw:after:absolute
+            tw:after:top-1/2
+            tw:after:-translate-y-1/2
+            tw:after:-right-3
+            tw:last:after:content-none
+            tw:last:select-none
+            tw:text-gray-700
+            tw:last:text-black
+          "
+        >
+          {{ article.title }}
+        </li>
+      {%- else -%}
+        <li
+          class="
+            tw:relative
+            tw:after:content-['/']
+            tw:after:absolute
+            tw:after:top-1/2
+            tw:after:-translate-y-1/2
+            tw:after:-right-3
+            tw:last:after:content-none
+            tw:last:select-none
+            tw:text-gray-700
+            tw:last:text-black
+          "
+        >
+          {{ page_title }}
+        </li>
+      {%- endif -%}
+    </ul>
+  </div>
+</nav>
