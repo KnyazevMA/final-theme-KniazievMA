@@ -20,10 +20,11 @@
           type="button"
           class="
             tw:w-22 tw:h-22 tw:rounded-lg tw:p-0 tw:cursor-pointer
-            hover:tw:border-black tw:overflow-hidden
-
+            tw:border tw:border-transparent
+            tw:hover:border-black tw:overflow-hidden
             {% if is_active %}
-              tw:border-black tw:border
+              tw:border-black!
+              tw:cursor-auto!
             {% endif %}
           "
           {% if disabled %}

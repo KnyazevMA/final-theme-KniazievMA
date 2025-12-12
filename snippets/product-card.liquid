@@ -1,0 +1,39 @@
+<div
+  class="
+    product-card
+    tw:bg-white tw:overflow-hidden
+     tw:h-full tw:flex tw:flex-col
+  "
+  {{ product.shopify_attributes }}
+>
+  <a
+    href="{{ product.url }}"
+    class="tw:flex tw:flex-col tw:h-full"
+  >
+    {%- assign product_image_label = 'a11y.product_image' | t -%}
+    {%- assign alt_text = product.featured_image.alt
+      | default: product.title
+      | append: ' — '
+      | append: product_image_label
+    -%}
+    {{
+      product.featured_image
+      | image_url: width: 2000
+      | image_tag:
+        widths: '200, 400, 600, 800, 1000, 1200, 1600, 2000',
+        sizes: '(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw',
+        loading: 'lazy',
+        alt: alt_text,
+        class: 'tw:block tw:mb-4! tw:w-full tw:h-auto tw:object-cover tw:flex-shrink-0 tw:aspect-square tw:rounded-lg'
+    }}
+    <h3
+      class="tw:text-body-lg tw:leading-body-lg tw:text-black tw:mb-2! tw:grow"
+    >
+      {{ product.title }}
+    </h3>
+
+    <span class="tw:block tw:text-body-lg tw:leading-body-lg tw:text-gray-700">
+      {{ product.price | money }}
+    </span>
+  </a>
+</div>

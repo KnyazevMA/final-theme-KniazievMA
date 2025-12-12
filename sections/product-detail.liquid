@@ -54,9 +54,9 @@
                   label: block.settings.size_label,
                   show_size_label: block.settings.show_size_label
                 %}
-
+{% comment %} 
               {% when 'quantity' %}
-                {% render 'quantity' %}
+                {% render 'quantity' %} {% endcomment %}
 
               {% when 'add_to_cart' %}
                 {% render 'product-add-to-cart',
