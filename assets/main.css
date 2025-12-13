@@ -32,7 +32,6 @@
     --tw-text-3xl--line-height: calc(2.25 / 1.875);
     --tw-font-weight-medium: 500;
     --tw-font-weight-bold: 700;
-    --tw-radius-md: 0.375rem;
     --tw-radius-lg: 0.5rem;
     --tw-radius-2xl: 1rem;
     --tw-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -554,9 +553,6 @@
   }
   .tw\:p-0 {
     padding: calc(var(--tw-spacing) * 0);
-  }
-  .tw\:p-2 {
-    padding: calc(var(--tw-spacing) * 2);
   }
   .tw\:p-2\.5 {
     padding: calc(var(--tw-spacing) * 2.5);
