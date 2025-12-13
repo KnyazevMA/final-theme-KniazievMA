@@ -13,6 +13,7 @@
     --tw-color-gray-500: oklch(55.1% 0.027 264.364);
     --tw-color-gray-700: #737373;
     --tw-color-gray-800: oklch(27.8% 0.033 256.848);
+    --tw-color-neutral-700: oklch(37.1% 0 0);
     --tw-color-neutral-900: oklch(20.5% 0 0);
     --tw-color-neutral-950: oklch(14.5% 0 0);
     --tw-color-black: #111111;
@@ -35,7 +36,6 @@
     --tw-font-weight-medium: 500;
     --tw-font-weight-bold: 700;
     --tw-radius-lg: 0.5rem;
-    --tw-radius-xl: 0.75rem;
     --tw-radius-2xl: 1rem;
     --tw-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --tw-default-transition-duration: 150ms;
@@ -255,9 +255,6 @@
   .tw\:mt-4 {
     margin-top: calc(var(--tw-spacing) * 4);
   }
-  .tw\:-mr-\[50vw\] {
-    margin-right: calc(50vw * -1);
-  }
   .tw\:-mr-\[50vw\]\! {
     margin-right: calc(50vw * -1) !important;
   }
@@ -279,9 +276,6 @@
   .tw\:mb-6 {
     margin-bottom: calc(var(--tw-spacing) * 6);
   }
-  .tw\:mb-8 {
-    margin-bottom: calc(var(--tw-spacing) * 8);
-  }
   .tw\:mb-8\! {
     margin-bottom: calc(var(--tw-spacing) * 8) !important;
   }
@@ -290,9 +284,6 @@
   }
   .tw\:mb-12\! {
     margin-bottom: calc(var(--tw-spacing) * 12) !important;
-  }
-  .tw\:-ml-\[50vw\] {
-    margin-left: calc(50vw * -1);
   }
   .tw\:-ml-\[50vw\]\! {
     margin-left: calc(50vw * -1) !important;
@@ -410,9 +401,6 @@
   .tw\:w-22 {
     width: calc(var(--tw-spacing) * 22);
   }
-  .tw\:w-36 {
-    width: calc(var(--tw-spacing) * 36);
-  }
   .tw\:w-auto {
     width: auto;
   }
@@ -428,14 +416,8 @@
   .tw\:max-w-2xl {
     max-width: var(--tw-container-2xl);
   }
-  .tw\:max-w-20 {
-    max-width: calc(var(--tw-spacing) * 20);
-  }
   .tw\:max-w-25 {
     max-width: calc(var(--tw-spacing) * 25);
-  }
-  .tw\:max-w-52 {
-    max-width: calc(var(--tw-spacing) * 52);
   }
   .tw\:max-w-96 {
     max-width: calc(var(--tw-spacing) * 96);
@@ -443,14 +425,8 @@
   .tw\:max-w-\[648px\] {
     max-width: 648px;
   }
-  .tw\:max-w-\[1440px\] {
-    max-width: 1440px;
-  }
   .tw\:max-w-full {
     max-width: 100%;
-  }
-  .tw\:max-w-xl {
-    max-width: var(--tw-container-xl);
   }
   .tw\:flex-none {
     flex: none;
@@ -635,26 +611,11 @@
   .tw\:p-15 {
     padding: calc(var(--tw-spacing) * 15);
   }
-  .tw\:px-6 {
-    padding-inline: calc(var(--tw-spacing) * 6);
-  }
-  .tw\:px-8 {
-    padding-inline: calc(var(--tw-spacing) * 8);
-  }
   .tw\:px-15 {
     padding-inline: calc(var(--tw-spacing) * 15);
   }
   .tw\:py-3 {
     padding-block: calc(var(--tw-spacing) * 3);
-  }
-  .tw\:py-4 {
-    padding-block: calc(var(--tw-spacing) * 4);
-  }
-  .tw\:py-16 {
-    padding-block: calc(var(--tw-spacing) * 16);
-  }
-  .tw\:py-24 {
-    padding-block: calc(var(--tw-spacing) * 24);
   }
   .tw\:pb-4 {
     padding-bottom: calc(var(--tw-spacing) * 4);
@@ -733,6 +694,9 @@
   }
   .tw\:text-inherit {
     color: inherit;
+  }
+  .tw\:text-neutral-700 {
+    color: var(--tw-color-neutral-700);
   }
   .tw\:text-white {
     color: var(--tw-color-white);
