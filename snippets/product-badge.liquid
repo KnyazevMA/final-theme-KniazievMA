@@ -1,0 +1,29 @@
+{%- liquid
+  assign label = ''
+  assign icon = ''
+
+  if product.tags contains 'sale'
+    assign label = 'Sale'
+    assign icon = 'tag'
+  elsif product.tags contains 'low-stock'
+    assign label = 'Low stock'
+    assign icon = 'alert'
+  elsif product.tags contains 'highly-rated'
+    assign label = 'Highly Rated'
+    assign icon = 'star'
+  elsif product.tags contains 'new'
+    assign label = 'New'
+    assign icon = 'sparkles'
+  endif
+-%}
+
+{%- if label != blank -%}
+  <span class="tw:max-w-32 tw:p-2 tw:flex tw:items-center tw:justify-center tw:gap-1 tw:text-body-md tw:leading-body-md tw:text-dark tw:bg-white tw:rounded-sm">
+    {%- if icon != blank -%}
+      <span class="tw:inline-flex tw:items-center tw:justify-center tw:text-neutral-900">
+        {% render 'icon', name: icon %}
+      </span>
+    {%- endif -%}
+    <span>{{ label }}</span>
+  </span>
+{%- endif -%}
