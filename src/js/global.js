@@ -75,19 +75,78 @@ function createSectionSwiper(rootEl, {
     return new Swiper(container, finalConfig);
 }
 
+class ProductPageLoader {
+    constructor() {
+        this.onProductChange = this.onProductChange.bind(this);
+
+        document.addEventListener('product:change', this.onProductChange);
+    }
+
+    async onProductChange(event) {
+        const handle = event.detail.handle;
+        if (!handle) return;
+
+        const sectionIds = this.getSectionIds();
+        if (!sectionIds.length) return;
+
+        const params = sectionIds.join(',');
+
+        const url = `/products/${handle}?sections=${params}`;
+
+        history.pushState({}, '', `/products/${handle}`);
+
+        const response = await fetch(url);
+        if (!response.ok) return;
+
+        const sectionsHtml = await response.json();
+
+        sectionIds.forEach(id => {
+            if (!sectionsHtml[id]) return;
+
+            this.replaceSection(id, sectionsHtml[id]);
+        });
+
+        this.reInit();
+    }
+
+    getSectionIds() {
+        return Array.from(document.querySelectorAll('[data-section-id]'))
+            .map(el => el.dataset.sectionId)
+            .filter(Boolean);
+    }
+
+    reInit() {
+        document.querySelectorAll('form#ProductForm').forEach(f => new ProductForm(f));
+        document.querySelectorAll('[data-color-selector]').forEach(el => new ColorSelector(el));
+        document.querySelectorAll('[data-size-selector]').forEach(el => new SizeSelector(el));
+        document.querySelectorAll('[data-gallery]').forEach(el => new ProductGallery(el));
+        document.querySelectorAll('[data-faq]').forEach(el => new ProductAccordion(el));
+        document.querySelectorAll('[data-section="product-recommendations"]')
+            .forEach(el => new ProductRecommendationsSection(el));
+    }
+
+    replaceSection(sectionId, html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        const newSection = doc.querySelector(`#shopify-section-${sectionId}`);
+        const currentSection = document.querySelector(`#shopify-section-${sectionId}`);
+
+        if (!newSection || !currentSection) return;
+
+        currentSection.replaceWith(newSection);
+    }
+}
+
 class ColorSelector {
     constructor(root) {
         this.root = root;
-        this.sectionRoot = this.root.closest('[data-section-id]');
-        this.sectionId = this.sectionRoot ? this.sectionRoot.dataset.sectionId : null;
+        this.onClick = this.onClick.bind(this);
 
-        if (!this.sectionId) return;
-
-        this.handleClick = this.handleClick.bind(this);
-        this.root.addEventListener('click', this.handleClick);
+        this.root.addEventListener('click', this.onClick);
     }
 
-    handleClick(event) {
+    onClick(event) {
         const btn = event.target.closest('[data-product-handle]');
         if (!btn) return;
 
@@ -96,45 +155,77 @@ class ColorSelector {
         const handle = btn.dataset.productHandle;
         if (!handle) return;
 
-        const requestUrl = `/products/${handle}?section_id=${this.sectionId}`;
-
-        history.pushState({}, '', `/products/${handle}`);
-
-        fetch(requestUrl)
-            .then(res => res.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-
-                const newSection = doc.querySelector(`[data-section-id="${this.sectionId}"]`);
-                const currentSection = this.sectionRoot;
-
-                if (!newSection || !currentSection) return;
-
-                currentSection.innerHTML = newSection.innerHTML;
-
-                const breadcrumbSectionId = "breadcrumbs";
-
-                const newBreadcrumbs = doc.querySelector(`[data-section-id="${breadcrumbSectionId}"]`);
-                const currentBreadcrumbs = document.querySelector(`[data-section-id="${breadcrumbSectionId}"]`);
-
-                if (newBreadcrumbs && currentBreadcrumbs) {
-                    currentBreadcrumbs.innerHTML = newBreadcrumbs.innerHTML;
-                }
-
-                document.querySelectorAll('form#ProductForm').forEach(form => {
-                    new ProductForm(form);
-                });
-
-                document.querySelectorAll('[data-color-selector]').forEach(el => {
-                    new ColorSelector(el);
-                });
-
-                document.querySelectorAll('[data-gallery]').forEach(el => {
-                    new ProductGallery(el);
-                });
+        document.dispatchEvent(
+            new CustomEvent('product:change', {
+                detail: { handle }
             })
-            .catch(() => { });
+        );
+    }
+}
+
+class SizeSelector {
+    constructor(root) {
+        this.root = root;
+        this.inputs = Array.from(
+            root.querySelectorAll('input[name="size"]')
+        );
+        this.output = document.querySelector('[data-availability-text]');
+        this.addToCartBtn = document.querySelector('[data-add-to-cart]');
+        this.texts = window.theme.strings;
+        if (!this.inputs.length || !this.output) {
+            console.warn('[SizeAvailability] missing elements');
+            return;
+        }
+        this.bind();
+        this.init();
+    }
+
+    bind() {
+        this.inputs.forEach(input => {
+            input.addEventListener('change', () => {
+                this.update(input);
+                this.updateAddToCartState();
+            });
+        });
+    }
+
+    init() {
+        const checked = this.inputs.find(i => i.checked);
+        if (checked) {
+            this.update(checked);
+        }
+        this.updateAddToCartState();
+    }
+
+    update(input) {
+        const available = input.dataset.available === 'true';
+        const qty = parseInt(input.dataset.qty, 10);
+
+        let text = this.texts.outOfStock;
+
+        if (available) {
+            if (!isNaN(qty) && qty > 0) {
+                text = this.texts.inStockQty + qty;
+            } else {
+                text = this.texts.inStock;
+            }
+        }
+
+        this.output.textContent = text;
+    }
+
+    updateAddToCartState() {
+        if (!this.addToCartBtn) return;
+
+        const hasAvailableVariant = this.inputs.some(
+            input => input.dataset.available === 'true'
+        );
+
+        this.addToCartBtn.disabled = !hasAvailableVariant;
+
+        if (!hasAvailableVariant) {
+            this.output.textContent = this.texts.soldOut;
+        }
     }
 }
 
@@ -236,8 +327,6 @@ class ProductAccordion {
             btn.addEventListener('click', () => {
                 const isOpen = content.dataset.active === "true";
 
-
-                // Закриваємо всі
                 this.items.forEach(i => {
                     const c = i.querySelector('[data-content]');
                     if (c) c.dataset.active = "false";
@@ -246,7 +335,6 @@ class ProductAccordion {
                     if (icon) icon.dataset.active = "false";
                 });
 
-                // Якщо елемент був закритий — відкриваємо
                 if (!isOpen) {
                     content.dataset.active = "true";
                     item.querySelector('[data-icon]').dataset.active = "true";
@@ -276,21 +364,17 @@ class ProductRecommendationsSection {
 
             const html = await response.text();
 
-            // Парсим HTML
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
             const newSection = doc.querySelector('[data-section="product-recommendations"]');
 
-            // Нічого не повернулося – ховаємо секцію
             if (!newSection) {
                 this.sectionEl.style.display = 'none';
                 return;
             }
 
-            // Замінюємо вміст поточної секції на новий
             this.sectionEl.innerHTML = newSection.innerHTML;
 
-            // Ініціалізуємо Swiper
             this.swiper = createSectionSwiper(this.sectionEl, {
                 containerSelector: '.js-product-recommendations-swiper',
                 nextSelector: '.swiper-button-next',
@@ -304,9 +388,12 @@ class ProductRecommendationsSection {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    new ProductPageLoader();
+    document.querySelectorAll('[data-color-selector]').forEach(el => new ColorSelector(el));
+    document.querySelectorAll('[data-size-selector]').forEach(el => new SizeSelector(el));
     document.querySelectorAll('form#ProductForm').forEach(f => new ProductForm(f));
-    document.querySelectorAll('[data-color-selector]').forEach(r => new ColorSelector(r));
-    document.querySelectorAll('[data-gallery]').forEach((g) => new ProductGallery(g));
+    document.querySelectorAll('[data-gallery]').forEach(el => new ProductGallery(el));
     document.querySelectorAll('[data-faq]').forEach(el => new ProductAccordion(el));
-    document.querySelectorAll('[data-section="product-recommendations"]').forEach(el => new ProductRecommendationsSection(el));
+    document.querySelectorAll('[data-section="product-recommendations"]')
+        .forEach(el => new ProductRecommendationsSection(el));
 });

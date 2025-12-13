@@ -7,11 +7,11 @@
       tw:w-full tw:bg-black tw:text-white tw:py-3 tw:rounded-lg
       tw:text-body-lg tw:leading-body-lg tw:cursor-pointer
       tw:hover:bg-gray-700 tw:focus-visible:bg-gray-700 tw:transition
-      tw:disabled:cursor-auto
+      tw:disabled:bg-gray-300 tw:disabled:cursor-not-allowed
     "
+    data-add-to-cart
     {% if variant_id == blank %}
       disabled
-      class="tw:opacity-50 tw:cursor-not-allowed"
     {% endif %}
   >
     Add to bag

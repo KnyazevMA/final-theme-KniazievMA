@@ -74,11 +74,14 @@
     "privacy": "Privacy Policy",
     "cookies": "Cookie Policy"
   },
-  "product": {
-    "sold_out": "Sold out",
-    "unavailable": "Unavailable",
-    "add_to_cart": "Add to cart",
-    "quantity": "Quantity",
-    "view_details": "View details"
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "select_size": "Please select a size",
+      "in_stock": "In Stock",
+      "in_stock_qty": "In Stock · ",
+      "out_of_stock": "Out of Stock",
+      "sold_out": "Sorry, this product is out of stock"
+    }
   }
 }

@@ -1,3 +1,8 @@
+{% liquid
+  assign rating = 5.0
+  assign current_variant = product.selected_or_first_available_variant
+  assign description = product.metafields.custom.product_description_text
+%}
 <section class="product-detail" data-section-id="{{ section.id }}" data-section-type="product-detail">
   <div class="page-width">
     <div class="tw:grid tw:grid-cols-2 tw:gap-15">
@@ -10,10 +15,9 @@
                 {{ product.title }}
               </h1>
 
-              {% assign rating = 5.0 %}
-
-              <div class="tw:flex tw:items-center tw:gap-1">
-                {% render 'review-stars' rating: rating %}
+            {% when 'rating' %}
+              <div class="tw:flex tw:items-center tw:gap-1 block-{{ block.id }}">
+                {% render 'review-stars', rating: rating %}
                 <span class="tw:text-body-md tw:leading-body-md tw:text-neutral-700">
                   {{ rating }}
                 </span>
@@ -27,12 +31,11 @@
         {% endfor %}
 
         {%- form 'product', product, id: 'ProductForm' -%}
-          {% assign current_variant = product.selected_or_first_available_variant %}
-
           {% for block in section.blocks %}
+            {% assign info = block.settings.shipping_info %}
             {% case block.type %}
               {% when 'price' %}
-                <div class="block-{{ block.id }}">
+                <div class="block-{{ block.id }} tw:flex tw:justify-between tw:items-center">
                   {% if current_variant.compare_at_price > current_variant.price %}
                     <div class="tw:flex tw:items-center tw:gap-1.5">
                       <span class="tw:text-body-lg tw:leading-body-lg tw:text-gray-700 tw:line-through">
@@ -47,6 +50,9 @@
                       {{ current_variant.price | money }}
                     </span>
                   {% endif %}
+                  <p class="tw:mt-3 tw:text-body-sm tw:leading-body-sm" data-availability-text>
+                    {{ 'products.product.select_size' | t | escape | default: 'Please select a size' -}}
+                  </p>
                 </div>
               {% when 'color' %}
                 {% render 'product-option-color',
@@ -63,10 +69,6 @@
                   label: block.settings.size_label,
                   show_size_label: block.settings.show_size_label
                 %}
-                {% comment %}
-                  {% when 'quantity' %}
-                    {% render 'quantity' %}
-                {% endcomment %}
 
               {% when 'add_to_cart' %}
                 {% render 'product-add-to-cart',
@@ -83,8 +85,6 @@
             {% for block in section.blocks %}
               {% case block.type %}
                 {% when 'shipping_info' %}
-                  {% assign info = block.settings.shipping_info %}
-
                   {% if info %}
                     <div class="tw:flex tw:items-center tw:gap-1.5 tw:text-body-md tw:text-black">
                       {%- if info.icon != blank -%}
@@ -102,7 +102,6 @@
               {% endcase %}
             {% endfor %}
           </div>
-          {% assign description = product.metafields.custom.product_description_text %}
           <p class="tw:text-body-md tw:leading-body-md tw:text-gray-700">{{ description }}</p>
         </div>
         {% render 'product-accordion', product: product %}
@@ -134,6 +133,16 @@
   {% endif %}
 {%- endstyle -%}
 
+<script>
+  window.theme = window.theme || {};
+  window.theme.strings = {
+    inStock: "{{ 'products.product.in_stock' | t | escape | default: 'In Stock' }}",
+    inStockQty: "{{ 'products.product.in_stock_qty' | t | escape | default: 'In Stock · ' }}",
+    outOfStock: "{{ 'products.product.out_of_stock' | t | escape | default: 'Out of Stock' }}",
+    soldOut: "{{ 'products.product.sold_out' | t | escape | default: 'Sorry, this product is out of stock' }}",
+  };
+</script>
+
 {% schema %}
 {
   "name": "Product Detail",
@@ -163,6 +172,33 @@
     {
       "type": "title",
       "name": "Title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margin bottom",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 8
+        }
+      ]
+    },
+    {
+      "type": "rating",
+      "name": "Rating",
       "limit": 1,
       "settings": [
         {

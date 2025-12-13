@@ -1,11 +1,14 @@
-{%- if product -%}
-  {% render 'breadcrumbs' %}
-{%- endif -%}
+<section data-section-id="{{ section.id }}">
+  {%- if product -%}
+      {% render 'breadcrumbs' %}
+  {%- endif -%}
+</section>
 
 {% schema %}
 {
   "name": "t:general.product",
-  "settings": [],
+  "settings": [
+  ],
   "disabled_on": {
     "groups": ["header", "footer"]
   }
