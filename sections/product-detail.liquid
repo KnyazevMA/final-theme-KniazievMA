@@ -35,7 +35,7 @@
             {% assign info = block.settings.shipping_info %}
             {% case block.type %}
               {% when 'price' %}
-                <div class="block-{{ block.id }}">
+                <div class="block-{{ block.id }} tw:flex tw:justify-between tw:items-center">
                   {% if current_variant.compare_at_price > current_variant.price %}
                     <div class="tw:flex tw:items-center tw:gap-1.5">
                       <span class="tw:text-body-lg tw:leading-body-lg tw:text-gray-700 tw:line-through">
@@ -50,6 +50,9 @@
                       {{ current_variant.price | money }}
                     </span>
                   {% endif %}
+                  <p class="tw:mt-3 tw:text-body-sm tw:leading-body-sm" data-availability-text>
+                    {{ 'products.product.select_size' | t | escape | default: 'Please select a size' -}}
+                  </p>
                 </div>
               {% when 'color' %}
                 {% render 'product-option-color',
@@ -66,10 +69,6 @@
                   label: block.settings.size_label,
                   show_size_label: block.settings.show_size_label
                 %}
-                {% comment %}
-                  {% when 'quantity' %}
-                    {% render 'quantity' %}
-                {% endcomment %}
 
               {% when 'add_to_cart' %}
                 {% render 'product-add-to-cart',
@@ -133,6 +132,16 @@
     }
   {% endif %}
 {%- endstyle -%}
+
+<script>
+  window.theme = window.theme || {};
+  window.theme.strings = {
+    inStock: "{{ 'products.product.in_stock' | t | escape | default: 'In Stock' }}",
+    inStockQty: "{{ 'products.product.in_stock_qty' | t | escape | default: 'In Stock · ' }}",
+    outOfStock: "{{ 'products.product.out_of_stock' | t | escape | default: 'Out of Stock' }}",
+    soldOut: "{{ 'products.product.sold_out' | t | escape | default: 'Sorry, this product is out of stock' }}",
+  };
+</script>
 
 {% schema %}
 {

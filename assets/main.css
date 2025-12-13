@@ -8,6 +8,7 @@
     --tw-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --tw-color-blue-600: oklch(54.6% 0.245 262.881);
+    --tw-color-gray-100: #F5F5F5;
     --tw-color-gray-200: #EBEBEB;
     --tw-color-gray-300: #CACACB;
     --tw-color-gray-500: oklch(55.1% 0.027 264.364);
@@ -252,6 +253,9 @@
   .tw\:mx-auto {
     margin-inline: auto;
   }
+  .tw\:mt-3 {
+    margin-top: calc(var(--tw-spacing) * 3);
+  }
   .tw\:mt-4 {
     margin-top: calc(var(--tw-spacing) * 4);
   }
@@ -415,6 +419,9 @@
   }
   .tw\:max-w-2xl {
     max-width: var(--tw-container-2xl);
+  }
+  .tw\:max-w-10\/12 {
+    max-width: calc(10/12 * 100%);
   }
   .tw\:max-w-25 {
     max-width: calc(var(--tw-spacing) * 25);
@@ -773,6 +780,21 @@
       border-color: var(--tw-color-black);
     }
   }
+  .tw\:peer-disabled\:cursor-not-allowed {
+    &:is(:where(.tw\:peer):disabled ~ *) {
+      cursor: not-allowed;
+    }
+  }
+  .tw\:peer-disabled\:bg-gray-100 {
+    &:is(:where(.tw\:peer):disabled ~ *) {
+      background-color: var(--tw-color-gray-100);
+    }
+  }
+  .tw\:peer-disabled\:bg-gray-300 {
+    &:is(:where(.tw\:peer):disabled ~ *) {
+      background-color: var(--tw-color-gray-300);
+    }
+  }
   .tw\:after\:absolute {
     &::after {
       content: var(--tw-content);
@@ -891,6 +913,15 @@
       }
     }
   }
+  .tw\:peer-disabled\:hover\:border-transparent {
+    &:is(:where(.tw\:peer):disabled ~ *) {
+      &:hover {
+        @media (hover: hover) {
+          border-color: transparent;
+        }
+      }
+    }
+  }
   .tw\:focus-visible\:bg-gray-700 {
     &:focus-visible {
       background-color: var(--tw-color-gray-700);
@@ -905,6 +936,16 @@
   .tw\:disabled\:cursor-auto {
     &:disabled {
       cursor: auto;
+    }
+  }
+  .tw\:disabled\:cursor-not-allowed {
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+  .tw\:disabled\:bg-gray-300 {
+    &:disabled {
+      background-color: var(--tw-color-gray-300);
     }
   }
   .tw\:max-md\:flex {

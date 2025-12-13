@@ -118,6 +118,7 @@ class ProductPageLoader {
     reInit() {
         document.querySelectorAll('form#ProductForm').forEach(f => new ProductForm(f));
         document.querySelectorAll('[data-color-selector]').forEach(el => new ColorSelector(el));
+        document.querySelectorAll('[data-size-selector]').forEach(el => new SizeSelector(el));
         document.querySelectorAll('[data-gallery]').forEach(el => new ProductGallery(el));
         document.querySelectorAll('[data-faq]').forEach(el => new ProductAccordion(el));
         document.querySelectorAll('[data-section="product-recommendations"]')
@@ -159,6 +160,72 @@ class ColorSelector {
                 detail: { handle }
             })
         );
+    }
+}
+
+class SizeSelector {
+    constructor(root) {
+        this.root = root;
+        this.inputs = Array.from(
+            root.querySelectorAll('input[name="size"]')
+        );
+        this.output = document.querySelector('[data-availability-text]');
+        this.addToCartBtn = document.querySelector('[data-add-to-cart]');
+        this.texts = window.theme.strings;
+        if (!this.inputs.length || !this.output) {
+            console.warn('[SizeAvailability] missing elements');
+            return;
+        }
+        this.bind();
+        this.init();
+    }
+
+    bind() {
+        this.inputs.forEach(input => {
+            input.addEventListener('change', () => {
+                this.update(input);
+                this.updateAddToCartState();
+            });
+        });
+    }
+
+    init() {
+        const checked = this.inputs.find(i => i.checked);
+        if (checked) {
+            this.update(checked);
+        }
+        this.updateAddToCartState();
+    }
+
+    update(input) {
+        const available = input.dataset.available === 'true';
+        const qty = parseInt(input.dataset.qty, 10);
+
+        let text = this.texts.outOfStock;
+
+        if (available) {
+            if (!isNaN(qty) && qty > 0) {
+                text = this.texts.inStockQty + qty;
+            } else {
+                text = this.texts.inStock;
+            }
+        }
+
+        this.output.textContent = text;
+    }
+
+    updateAddToCartState() {
+        if (!this.addToCartBtn) return;
+
+        const hasAvailableVariant = this.inputs.some(
+            input => input.dataset.available === 'true'
+        );
+
+        this.addToCartBtn.disabled = !hasAvailableVariant;
+
+        if (!hasAvailableVariant) {
+            this.output.textContent = this.texts.soldOut;
+        }
     }
 }
 
@@ -323,6 +390,7 @@ class ProductRecommendationsSection {
 document.addEventListener('DOMContentLoaded', () => {
     new ProductPageLoader();
     document.querySelectorAll('[data-color-selector]').forEach(el => new ColorSelector(el));
+    document.querySelectorAll('[data-size-selector]').forEach(el => new SizeSelector(el));
     document.querySelectorAll('form#ProductForm').forEach(f => new ProductForm(f));
     document.querySelectorAll('[data-gallery]').forEach(el => new ProductGallery(el));
     document.querySelectorAll('[data-faq]').forEach(el => new ProductAccordion(el));

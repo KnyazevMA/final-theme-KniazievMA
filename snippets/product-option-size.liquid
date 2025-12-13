@@ -1,7 +1,9 @@
-{% assign sizes = product.metafields.custom.sizes.value %}
+{% liquid
+  assign sizes = product.metafields.custom.sizes.value
+%}
 
 {% if sizes != blank %}
-  <fieldset class="block-{{ block.id }}">
+  <fieldset class="block-{{ block.id }}" data-size-selector>
     {% if block.settings.show_size_label %}
       <legend class="tw:mb-3!">{{ label }}</legend>
     {% endif %}
@@ -9,26 +11,33 @@
     <div class="tw:grid tw:grid-cols-3 tw:gap-2">
       {% for size in sizes %}
         {% assign label = size.name %}
-        {% assign variant_id = size.variant_id %}
+        {% assign variant = null %}
 
+        {% for v in product.variants %}
+          {% if v.option1 == size.name %}
+            {% assign variant = v %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
         <label class="tw:cursor-pointer">
           <input
             type="radio"
             name="size"
-            value="{{ label }}"
-            data-variant="{{ variant_id }}"
-            {% if forloop.first %}
-              checked
-            {% endif %}
+            value="{{ size.name }}"
+            data-available="{{ variant.available }}"
+            data-qty="{{ variant.inventory_quantity }}"
             class="tw:sr-only tw:peer"
+            {% unless variant.available %}
+              disabled
+            {% endunless %}
           >
 
-            
           <span
             class="
               tw:flex tw:items-center tw:justify-center
               tw:text-body-md tw:leading-body-md tw:text-black
               tw:border tw:rounded-lg tw:border-gray-200 tw:p-4
+              tw:peer-disabled:bg-gray-100 tw:peer-disabled:cursor-not-allowed tw:peer-disabled:hover:border-transparent
               tw:peer-hover:border-black
               tw:peer-focus-visible:border-black
               tw:peer-checked:border-black
@@ -42,3 +51,5 @@
     </div>
   </fieldset>
 {% endif %}
+
+
