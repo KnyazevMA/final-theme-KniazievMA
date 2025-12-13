@@ -1,4 +1,4 @@
-<section data-section-id="{{ section.id }}" data-section-type="product-detail">
+<section class="product-detail" data-section-id="{{ section.id }}" data-section-type="product-detail">
   <div class="page-width">
     <div class="tw:grid tw:grid-cols-2 tw:gap-15">
       {% render 'product-media', product: product %}
@@ -63,9 +63,10 @@
                   label: block.settings.size_label,
                   show_size_label: block.settings.show_size_label
                 %}
-{% comment %} 
-              {% when 'quantity' %}
-                {% render 'quantity' %} {% endcomment %}
+                {% comment %}
+                  {% when 'quantity' %}
+                    {% render 'quantity' %}
+                {% endcomment %}
 
               {% when 'add_to_cart' %}
                 {% render 'product-add-to-cart',
@@ -104,9 +105,7 @@
           {% assign description = product.metafields.custom.product_description_text %}
           <p class="tw:text-body-md tw:leading-body-md tw:text-gray-700">{{ description }}</p>
         </div>
-        {% render 'product-accordion',
-          product: product,
-        %}
+        {% render 'product-accordion', product: product %}
       </div>
     </div>
   </div>
@@ -123,12 +122,43 @@
       {% endif %}
     }
   {% endfor %}
+  {% if section.settings.margin_top %}
+    .product-detail {
+      margin-top: {{ section.settings.margin_top }}px;
+    }
+  {% endif %}
+  {% if section.settings.margin_bottom %}
+    .product-detail {
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  {% endif %}
 {%- endstyle -%}
 
 {% schema %}
 {
   "name": "Product Detail",
-  "settings": [],
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    }
+  ],
   "blocks": [
     {
       "type": "title",

@@ -80,19 +80,32 @@
         "add_to_cart_8THmER"
       ],
       "name": "Product Detail Default",
-      "settings": {}
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 80
+      }
     },
     "product_recomendation_qwxwCU": {
       "type": "product-recomendation",
       "name": "Product recommendations",
       "settings": {
-        "heading": "You may also like"
+        "heading": "You may also like",
+        "margin_top": 0,
+        "margin_bottom": 80
+      }
+    },
+    "reviews_section_DehkNq": {
+      "type": "reviews-section",
+      "name": "Reviews",
+      "settings": {
+        "heading": "Reviews"
       }
     }
   },
   "order": [
     "main",
     "product_detail_iPy7cj",
-    "product_recomendation_qwxwCU"
+    "product_recomendation_qwxwCU",
+    "reviews_section_DehkNq"
   ]
 }
