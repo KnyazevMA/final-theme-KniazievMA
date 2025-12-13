@@ -1,0 +1,42 @@
+{%- liquid
+  assign mf = product.metafields.custom.reviews_json
+  assign reviews = blank
+
+  if mf != blank
+    assign reviews = mf.value
+  endif
+-%}
+{%- if reviews != blank and reviews.size > 0 -%}
+  <section class="tw:py-16" data-section-id="{{ section.id }}" data-section-type="reviews">
+    <div class="page-width">
+      <h2 class="tw:text-h2 tw:leading-h2 tw:text-center tw:text-black tw:mb-12!">
+        {{ section.settings.heading }}
+      </h2>
+
+      <div class="tw:grid tw:grid-cols-3 tw:gap-6">
+        {%- for review in reviews limit: 3 -%}
+          {% render 'review-card', review: review %}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Reviews"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews"
+    }
+  ]
+}
+{% endschema %}

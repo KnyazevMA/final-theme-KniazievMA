@@ -1,0 +1,25 @@
+{%- liquid
+  assign rating = rating | default: 0 | plus: 0
+  if rating < 0
+    assign rating = 0
+  endif
+  if rating > 5
+    assign rating = 5
+  endif
+-%}
+
+<div class="tw:flex tw:items-center tw:gap-0.5" aria-label="Rating {{ rating }} out of 5">
+  {%- for i in (1..5) -%}
+    {%- assign is_filled = false -%}
+    {%- if i <= rating -%}
+      {%- assign is_filled = true -%}
+    {%- endif -%}
+
+    <span
+      class="tw:inline-flex tw:w-4 tw:h-4 {% if is_filled %}tw:text-black{% else %}tw:text-gray-300{% endif %}"
+      aria-hidden="true"
+    >
+      {% render 'icon', name: 'stars-icon' %}
+    </span>
+  {%- endfor -%}
+</div>

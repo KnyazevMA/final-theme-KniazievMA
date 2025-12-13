@@ -1,0 +1,48 @@
+{%- liquid
+  assign rating = review.rating | default: 0
+  assign text = review.text | default: ''
+  assign author = review.author | default: ''
+  assign location = review.location | default: ''
+  assign date = review.date | default: ''
+  assign avatar = review.avatar | default: ''
+-%}
+
+<article class="tw:border tw:border-gray-200 tw:rounded-lg tw:p-6 tw:flex tw:flex-col tw:gap-6">
+  <div class="tw:flex tw:items-center tw:justify-between tw:gap-4">
+    {% render 'review-stars', rating: rating %}
+
+    {%- if date != blank -%}
+      <time class="tw:text-body-sm tw:text-gray-500" datetime="{{ date }}">{{ date }}</time>
+    {%- endif -%}
+  </div>
+
+  {%- if text != blank -%}
+    <p class="tw:text-body-lg tw:leading-body-lg tw:text-black">
+      {{ text }}
+    </p>
+  {%- endif -%}
+
+  <div class="tw:flex tw:items-center tw:gap-3">
+    {%- if avatar != blank -%}
+      <img
+        src="{{ avatar }}"
+        alt="{{ author | escape }}"
+        width="56"
+        height="56"
+        class="tw:w-14 tw:h-14 tw:rounded-full tw:object-cover tw:flex-none"
+        loading="lazy"
+      >
+    {%- else -%}
+      <div class="tw:w-14 tw:h-14 tw:rounded-full tw:bg-gray-200 tw:flex-none"></div>
+    {%- endif -%}
+
+    <div class="tw:flex tw:flex-col tw:gap-1">
+      {%- if author != blank -%}
+        <div class="tw:text-body-lg tw:leading-body-lg tw:text-black">{{ author }}</div>
+      {%- endif -%}
+      {%- if location != blank -%}
+        <div class="tw:text-body-lg tw:leading-body-lg tw:text-gray-700">{{ location }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</article>
