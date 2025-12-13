@@ -13,10 +13,43 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {
-        "menu": "",
-        "show_payment_icons": true
-      }
+      "blocks": {
+        "column_HjU6xU": {
+          "type": "column",
+          "settings": {
+            "title": "",
+            "menu": "footer-company"
+          }
+        },
+        "column_wXFqjK": {
+          "type": "column",
+          "settings": {
+            "title": "",
+            "menu": "help"
+          }
+        },
+        "column_YNjTdF": {
+          "type": "column",
+          "settings": {
+            "title": "",
+            "menu": "footer"
+          }
+        },
+        "column_EC43ee": {
+          "type": "column",
+          "settings": {
+            "title": "",
+            "menu": "main-menu"
+          }
+        }
+      },
+      "block_order": [
+        "column_HjU6xU",
+        "column_wXFqjK",
+        "column_YNjTdF",
+        "column_EC43ee"
+      ],
+      "settings": {}
     }
   },
   "order": [
