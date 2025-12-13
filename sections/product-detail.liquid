@@ -10,6 +10,15 @@
                 {{ product.title }}
               </h1>
 
+              {% assign rating = 5.0 %}
+
+              <div class="tw:flex tw:items-center tw:gap-1">
+                {% render 'review-stars' rating: rating %}
+                <span class="tw:text-body-md tw:leading-body-md tw:text-neutral-700">
+                  {{ rating }}
+                </span>
+              </div>
+
             {% when 'description' %}
               <p class="tw:text-gray-700 tw:text-body-md tw:leading-body-md tw:mb-6 block-{{ block.id }}">
                 {{ product.description | strip_html | truncate: 300 }}
