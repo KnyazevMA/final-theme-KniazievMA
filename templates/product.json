@@ -98,7 +98,22 @@
       "type": "reviews-section",
       "name": "Reviews",
       "settings": {
-        "heading": "Reviews"
+        "heading": "Reviews",
+        "margin_top": 0,
+        "margin_bottom": 80
+      }
+    },
+    "cta_banner_PRHmfE": {
+      "type": "cta-banner",
+      "name": "CTA Banner",
+      "settings": {
+        "cta": "step-into-next-level-comfort",
+        "title": "Step Into Next-Level Comfort",
+        "text": "Experience the perfect mix of style, support, and all-day cushioning.",
+        "button_label": "Shop now",
+        "button_link": "",
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     }
   },
@@ -106,6 +121,7 @@
     "main",
     "product_detail_iPy7cj",
     "product_recomendation_qwxwCU",
-    "reviews_section_DehkNq"
+    "reviews_section_DehkNq",
+    "cta_banner_PRHmfE"
   ]
 }
