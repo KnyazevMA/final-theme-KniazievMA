@@ -7,7 +7,7 @@
   endif
 -%}
 {%- if reviews != blank and reviews.size > 0 -%}
-  <section class="tw:py-16" data-section-id="{{ section.id }}" data-section-type="reviews">
+  <section class="reviews-section" data-section-id="{{ section.id }}" data-section-type="reviews">
     <div class="page-width">
       <h2 class="tw:text-h2 tw:leading-h2 tw:text-center tw:text-black tw:mb-12!">
         {{ section.settings.heading }}
@@ -22,6 +22,19 @@
   </section>
 {%- endif -%}
 
+{%- style -%}
+  {% if section.settings.margin_top %}
+    .reviews-section {
+      margin-top: {{ section.settings.margin_top }}px;
+    }
+  {% endif %}
+  {% if section.settings.margin_bottom %}
+    .reviews-section {
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  {% endif %}
+{%- endstyle -%}
+
 {% schema %}
 {
   "name": "Reviews",
@@ -31,6 +44,26 @@
       "id": "heading",
       "label": "Heading",
       "default": "Reviews"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 60
     }
   ],
   "presets": [

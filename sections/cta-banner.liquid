@@ -1,0 +1,138 @@
+{% liquid
+  assign cta = section.settings.cta
+
+  if cta != blank
+    assign image = cta.image
+    assign title = cta.title
+    assign text = cta.text
+    assign button_label = cta.button_label
+    assign button_link = section.settings.button_link
+  else
+    assign image = section.settings.image
+    assign title = section.settings.title
+    assign text = section.settings.text
+    assign button_label = section.settings.button_label
+    assign button_link = section.settings.button_link
+  endif
+%}
+
+<section
+  class="
+    cta-banner
+        tw:relative tw:w-screen tw:left-1/2 tw:right-1/2 tw:-ml-[50vw]! tw:-mr-[50vw]!
+    tw:overflow-hidden
+  "
+>
+  {% if image %}
+    <div class="tw:absolute tw:inset-0">
+      {{ image | image_url: width: 2000 | image_tag: class: 'tw:w-full tw:h-full tw:object-cover' }}
+    </div>
+  {% endif %}
+
+  <div class="tw:relative tw:z-10 tw:w-full">
+    <div class="tw:w-full tw:h-[500px] tw:flex tw:flex-col tw:justify-center tw:px-15">
+      <div class="tw:max-w-2xl tw:text-white">
+        {% if title != blank %}
+          <h2 class="tw:text-h2 tw:leading-h2 tw:mb-4! tw:max-h-20 tw:overflow-hidden">
+            {{ title }}
+          </h2>
+        {% endif %}
+
+        {% if text != blank %}
+          <p class="tw:text-body-lg tw:leading-body-lg tw:mb-8! tw:max-h-52 tw:overflow-hidden">
+            {{ text }}
+          </p>
+        {% endif %}
+
+        {% if button_label != blank and button_link != blank %}
+          <a
+            href="{{ button_link }}"
+            class="tw:inline-flex tw:items-center tw:justify-center tw:p-4 tw:max-w-96 tw:rounded-lg tw:bg-white tw:text-black tw:text-body-lg tw:leading-body-lg tw:hover:bg-gray-300"
+          >
+            {{ button_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- style -%}
+  {% if section.settings.margin_top %}
+    .cta-banner {
+      margin-top: {{ section.settings.margin_top }}px;
+    }
+  {% endif %}
+  {% if section.settings.margin_bottom %}
+    .cta-banner {
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  {% endif %}
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "CTA Banner",
+  "settings": [
+    {
+      "type": "metaobject",
+      "id": "cta",
+      "label": "CTA banner (from library)",
+      "metaobject_type": "cta_banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Step Into Next-Level Comfort"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Experience the perfect mix of style, support, and all-day cushioning."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin top",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin bottom",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA Banner"
+    }
+  ]
+}
+{% endschema %}
