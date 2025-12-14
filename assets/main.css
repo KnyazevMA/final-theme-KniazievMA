@@ -217,9 +217,6 @@
   .tw\:relative {
     position: relative;
   }
-  .tw\:static {
-    position: static;
-  }
   .tw\:inset-0 {
     inset: calc(var(--tw-spacing) * 0);
   }
@@ -246,9 +243,6 @@
   }
   .tw\:right-2\.5 {
     right: calc(var(--tw-spacing) * 2.5);
-  }
-  .tw\:right-6 {
-    right: calc(var(--tw-spacing) * 6);
   }
   .tw\:right-\[-2\%\]\! {
     right: -2% !important;
@@ -477,15 +471,6 @@
   .tw\:max-w-full {
     max-width: 100%;
   }
-  .tw\:min-w-\[560px\] {
-    min-width: 560px;
-  }
-  .tw\:min-w-\[650px\] {
-    min-width: 650px;
-  }
-  .tw\:flex-1 {
-    flex: 1;
-  }
   .tw\:flex-none {
     flex: none;
   }
@@ -581,9 +566,6 @@
   .tw\:gap-y-7 {
     row-gap: calc(var(--tw-spacing) * 7);
   }
-  .tw\:self-start {
-    align-self: flex-start;
-  }
   .tw\:justify-self-end {
     justify-self: flex-end;
   }
@@ -592,12 +574,6 @@
   }
   .tw\:overflow-hidden {
     overflow: hidden;
-  }
-  .tw\:overflow-visible {
-    overflow: visible;
-  }
-  .tw\:overflow-visible\! {
-    overflow: visible !important;
   }
   .tw\:overflow-x-auto {
     overflow-x: auto;
@@ -692,14 +668,6 @@
   }
   .tw\:px-4 {
     padding-inline: calc(var(--tw-spacing) * 4);
-  }
-  .tw\:px-15 {
-    padding-inline: calc(var(--tw-spacing) * 15);
-  .tw\:py-8 {
-    padding-block: calc(var(--tw-spacing) * 8);
-  }
-  .tw\:pr-8 {
-    padding-right: calc(var(--tw-spacing) * 8);
   }
   .tw\:py-8 {
     padding-block: calc(var(--tw-spacing) * 8);
@@ -1259,11 +1227,6 @@
       padding: calc(var(--tw-spacing) * 11);
     }
   }
-  .tw\:md\:p-11 {
-    @media (width >= 48rem) {
-      padding: calc(var(--tw-spacing) * 11);
-    }
-  }
   .tw\:md\:px-0 {
     @media (width >= 48rem) {
       padding-inline: calc(var(--tw-spacing) * 0);
@@ -1295,11 +1258,6 @@
       top: calc(var(--tw-spacing) * 12);
     }
   }
-  .tw\:lg\:top-24 {
-    @media (width >= 64rem) {
-      top: calc(var(--tw-spacing) * 24);
-    }
-  }
   .tw\:lg\:h-6 {
     @media (width >= 64rem) {
       height: calc(var(--tw-spacing) * 6);
@@ -1328,16 +1286,6 @@
   .tw\:lg\:w-18\! {
     @media (width >= 64rem) {
       width: calc(var(--tw-spacing) * 18) !important;
-    }
-  }
-  .tw\:lg\:flex-1 {
-    @media (width >= 64rem) {
-      flex: 1;
-    }
-  }
-  .tw\:lg\:shrink-0 {
-    @media (width >= 64rem) {
-      flex-shrink: 0;
     }
   }
   .tw\:lg\:grid-cols-2\! {
