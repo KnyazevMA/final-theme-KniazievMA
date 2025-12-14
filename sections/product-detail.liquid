@@ -96,12 +96,16 @@
                   {% if info %}
                     <div class="tw:flex tw:items-center tw:gap-1.5 tw:text-body-md tw:text-black">
                       {%- if info.icon != blank -%}
-                        <img
-                          src="{{ info.icon | image_url: width: 24 }}"
-                          width="24"
-                          height="24"
-                          alt=""
-                        >
+                        {{
+                          info.icon
+                          | image_url: width: 48
+                          | image_tag:
+                            widths: '24, 48',
+                            sizes: '24px',
+                            class: 'tw:w-6 tw:h-6 tw:flex-none',
+                            alt: '',
+                            loading: 'lazy'
+                        }}
                       {%- endif -%}
 
                       {{ info.text }}
