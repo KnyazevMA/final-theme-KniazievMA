@@ -18,42 +18,53 @@
 
 <section
   class="
-    cta-banner
-        tw:relative tw:w-screen tw:left-1/2 tw:right-1/2 tw:-ml-[50vw]! tw:-mr-[50vw]!
-    tw:overflow-hidden
+        cta-banner
+    tw:relative tw:w-screen tw:left-1/2 tw:right-1/2 tw:-ml-[50vw]! tw:-mr-[50vw]! tw:h-[500px]
+    tw:overflow-hidden tw:flex tw:flex-col tw:justify-center tw:pl-4 tw:pr-8 tw:md:px-15
   "
   data-section-id="{{ section.id }}"
 >
   {% if image %}
     <div class="tw:absolute tw:inset-0">
-      {{ image | image_url: width: 2000 | image_tag: class: 'tw:w-full tw:h-full tw:object-cover' }}
+      {{
+        image
+        | image_url: width: 2000
+        | image_tag:
+          widths: '480, 768, 1024, 1440, 2000',
+          sizes: '(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 2000px',
+          alt: title,
+          loading: 'lazy',
+          class: '
+              tw:w-full!
+              tw:h-full!
+              tw:object-cover
+              md:tw:object-center'
+      }}
     </div>
   {% endif %}
 
   <div class="tw:relative tw:z-10 tw:w-full">
-    <div class="tw:w-full tw:h-[500px] tw:flex tw:flex-col tw:justify-center tw:px-15">
-      <div class="tw:max-w-2xl tw:text-white">
-        {% if title != blank %}
-          <h2 class="tw:text-h2 tw:leading-h2 tw:mb-4! tw:max-h-20 tw:overflow-hidden">
-            {{ title }}
-          </h2>
-        {% endif %}
+    <div class="tw:max-w-2xl tw:text-white">
+      {% if title != blank %}
+        <h2 class="tw:text-h2 tw:leading-h2 tw:mb-4! tw:max-h-20 tw:overflow-hidden">
+          {{ title }}
+        </h2>
+      {% endif %}
 
-        {% if text != blank %}
-          <p class="tw:text-body-lg tw:leading-body-lg tw:mb-8! tw:max-h-52 tw:overflow-hidden">
-            {{ text }}
-          </p>
-        {% endif %}
+      {% if text != blank %}
+        <p class="tw:text-body-lg tw:leading-body-lg tw:mb-8! tw:max-h-52 tw:overflow-hidden">
+          {{ text }}
+        </p>
+      {% endif %}
 
-        {% if button_label != blank and button_link != blank %}
-          <a
-            href="{{ button_link }}"
-            class="tw:inline-flex tw:items-center tw:justify-center tw:p-4 tw:max-w-96 tw:rounded-lg tw:bg-white tw:text-black tw:text-body-lg tw:leading-body-lg tw:hover:bg-gray-300"
-          >
-            {{ button_label }}
-          </a>
-        {% endif %}
-      </div>
+      {% if button_label != blank and button_link != blank %}
+        <a
+          href="{{ button_link }}"
+          class="tw:inline-flex tw:items-center tw:justify-center tw:p-4 tw:max-w-96 tw:rounded-lg tw:bg-white tw:text-black tw:text-body-lg tw:leading-body-lg tw:hover:bg-gray-300"
+        >
+          {{ button_label }}
+        </a>
+      {% endif %}
     </div>
   </div>
 </section>

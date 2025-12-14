@@ -19,9 +19,9 @@
 
 <div
   class="
-    tw:flex tw:flex-col
+    tw:flex tw:flex-col tw:justify-center
     tw:md:flex-row-reverse
-    tw:gap-4 tw:md:gap-6
+    tw:gap-4 tw:xl:gap-6
     tw:max-w-full
   "
   data-gallery
@@ -38,8 +38,16 @@
     {% if img_value %}
       {{
         img_value
-        | image_url: width: 536
-        | image_tag: alt: product.title, class: 'tw:block tw:w-full tw:h-full tw:object-cover', data-big: ''
+        | image_url: width: 1200
+        | image_tag:
+          widths: '400, 600, 800, 1000, 1200',
+          sizes: '(min-width: 1024px) 536px, 100vw',
+          class: 'tw:block tw:w-full tw:h-full tw:object-cover',
+          alt: product.title,
+          loading: 'eager',
+          fetchpriority: 'high',
+          format: 'webp',
+          data-big: ''
       }}
     {% else %}
       {{ 'image' | placeholder_svg_tag }}
@@ -49,10 +57,12 @@
   {% if product.media.size > 1 %}
     <div
       class="
-        tw:flex tw:gap-3
+        tw:flex tw:gap-3 tw:justify-start
         tw:overflow-x-auto
         tw:-mx-4
+        tw:sm:justify-center
         tw:md:flex-col
+        tw:md:justify-start
         tw:md:overflow-visible
         tw:md:mx-0 tw:md:px-0
       "
@@ -84,16 +94,23 @@
                 <button
                   type="button"
                   class="
-                    tw:w-22 tw:h-22 tw:rounded-lg tw:overflow-hidden tw:relative
+                    tw:w-22 tw:h-22
+                    tw:rounded-lg tw:overflow-hidden tw:relative
                     tw:cursor-pointer tw:bg-transparent tw:flex-none
                     tw:hover:border tw:hover:border-black/30
                     tw:focus-visible:outline-none
+                    tw:lg:w-18 tw:lg:h-18
+                    tw:xl:w-22 tw:xl:h-22
                     thumb
                   "
                   data-large="{{ v.featured_image | image_url: width: 800 }}"
                   data-thumb="{{ forloop.index0 }}"
                 >
-                  {% render 'image', image: v.featured_image, width: 88, class: 'tw:w-full tw:h-full tw:object-cover' %}
+                  {% render 'image',
+                    image: v.featured_image,
+                    width: 176,
+                    class: 'tw:w-full tw:h-full tw:object-cover'
+                  %}
 
                   {% assign big_url = img_value | image_url: width: 800 %}
                   {% assign thumb_url = v.featured_image | image_url: width: 800 %}
@@ -139,12 +156,23 @@
                   tw:w-22 tw:h-22 tw:rounded-lg tw:overflow-hidden tw:relative
                   tw:cursor-pointer tw:flex-none
                   tw:hover:border tw:hover:border-black/30
+                  tw:lg:w-18! tw:lg:h-18!
+                  tw:xl:w-22! tw:xl:h-22!
                   thumb
                 "
                 data-large="{{ m | image_url: width: 800 }}"
                 data-thumb="{{ forloop.index0 }}"
               >
-                {{ m | image_url: width: 88 | image_tag }}
+                {{
+                  m
+                  | image_url: width: 176
+                  | image_tag:
+                    widths: '88, 176, 264',
+                    sizes: '88px',
+                    loading: 'lazy',
+                    class: 'tw:w-full tw:h-full tw:object-cover',
+                    alt: product.title
+                }}
 
                 {% assign big_url = img_value | image_url: width: 800 %}
                 {% assign thumb_url = m | image_url: width: 800 %}

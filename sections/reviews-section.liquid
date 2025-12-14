@@ -9,11 +9,23 @@
 {%- if reviews != blank and reviews.size > 0 -%}
   <section class="reviews-section" data-section-id="{{ section.id }}" data-section-type="reviews">
     <div class="page-width">
-      <h2 class="tw:text-h2 tw:leading-h2 tw:text-center tw:text-black tw:mb-12!">
+      <h2
+        class="
+          tw:text-h2 tw:leading-h2 tw:mb-8!
+          tw:text-center tw:text-black
+          tw:md:text-h2 tw:md:leading-h2 tw:md:mb-12!
+        "
+      >
         {{ section.settings.heading }}
       </h2>
 
-      <div class="tw:grid tw:grid-cols-3 tw:gap-6">
+      <div
+        class="
+          tw:grid tw:grid-cols-1   tw:gap-4
+          tw:md:grid-cols-2
+          tw:lg:grid-cols-3! tw:md:gap-6
+        "
+      >
         {%- for review in reviews limit: 3 -%}
           {% render 'review-card', review: review %}
         {%- endfor -%}

@@ -75,6 +75,23 @@ function createSectionSwiper(rootEl, {
     return new Swiper(container, finalConfig);
 }
 
+function initProductUI() {
+    document.querySelectorAll('[data-color-selector]')
+        .forEach(el => new ColorSelector(el));
+
+    document.querySelectorAll('[data-size-selector]')
+        .forEach(el => new SizeSelector(el));
+
+    document.querySelectorAll('[data-gallery]')
+        .forEach(el => new ProductGallery(el));
+
+    document.querySelectorAll('[data-faq]')
+        .forEach(el => new ProductAccordion(el));
+
+    document.querySelectorAll('[data-section="product-recommendations"]')
+        .forEach(el => new ProductRecommendationsSection(el));
+}
+
 class ProductPageLoader {
     constructor() {
         this.onProductChange = this.onProductChange.bind(this);
@@ -83,60 +100,47 @@ class ProductPageLoader {
     }
 
     async onProductChange(event) {
-        const handle = event.detail.handle;
+        const handle = event.detail?.handle;
         if (!handle) return;
 
-        const sectionIds = this.getSectionIds();
-        if (!sectionIds.length) return;
+        const url = `/products/${handle}`;
 
-        const params = sectionIds.join(',');
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
 
-        const url = `/products/${handle}?sections=${params}`;
+            if (!response.ok) {
+                console.error('[ProductPageLoader] Failed to load product page');
+                return;
+            }
 
-        history.pushState({}, '', `/products/${handle}`);
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
 
-        const response = await fetch(url);
-        if (!response.ok) return;
+            const newMain = doc.querySelector('#MainContent');
+            const currentMain = document.querySelector('#MainContent');
 
-        const sectionsHtml = await response.json();
+            if (!newMain || !currentMain) {
+                console.warn('[ProductPageLoader] MainContent not found');
+                return;
+            }
 
-        sectionIds.forEach(id => {
-            if (!sectionsHtml[id]) return;
+            currentMain.replaceWith(newMain);
 
-            this.replaceSection(id, sectionsHtml[id]);
-        });
+            initProductUI();
 
-        this.reInit();
+            history.pushState({}, '', url);
+
+            document.dispatchEvent(new CustomEvent('product:updated'));
+        } catch (error) {
+            console.error('[ProductPageLoader] Error loading product', error);
+        }
     }
 
-    getSectionIds() {
-        return Array.from(document.querySelectorAll('[data-section-id]'))
-            .map(el => el.dataset.sectionId)
-            .filter(Boolean);
-    }
-
-    reInit() {
-        document.querySelectorAll('form#ProductForm').forEach(f => new ProductForm(f));
-        document.querySelectorAll('[data-color-selector]').forEach(el => new ColorSelector(el));
-        document.querySelectorAll('[data-size-selector]').forEach(el => new SizeSelector(el));
-        document.querySelectorAll('[data-gallery]').forEach(el => new ProductGallery(el));
-        document.querySelectorAll('[data-faq]').forEach(el => new ProductAccordion(el));
-        document.querySelectorAll('[data-section="product-recommendations"]')
-            .forEach(el => new ProductRecommendationsSection(el));
-        new SizeGuide();
-    }
-
-    replaceSection(sectionId, html) {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-
-        const newSection = doc.querySelector(`#shopify-section-${sectionId}`);
-        const currentSection = document.querySelector(`#shopify-section-${sectionId}`);
-
-        if (!newSection || !currentSection) return;
-
-        currentSection.replaceWith(newSection);
-    }
 }
 
 class ColorSelector {
@@ -477,12 +481,6 @@ document.addEventListener('DOMContentLoaded', () => {
     new ProductPageLoader();
     new SizeGuide();
     new DataActiveToggle('[data-toggle-active]');
-    new FooterAccordion('[data-toggle-active]')
-    document.querySelectorAll('[data-color-selector]').forEach(el => new ColorSelector(el));
-    document.querySelectorAll('[data-size-selector]').forEach(el => new SizeSelector(el));
-    document.querySelectorAll('form#ProductForm').forEach(f => new ProductForm(f));
-    document.querySelectorAll('[data-gallery]').forEach(el => new ProductGallery(el));
-    document.querySelectorAll('[data-faq]').forEach(el => new ProductAccordion(el));
-    document.querySelectorAll('[data-section="product-recommendations"]')
-        .forEach(el => new ProductRecommendationsSection(el));
+    new FooterAccordion('[data-toggle-active]');
+    initProductUI();
 });

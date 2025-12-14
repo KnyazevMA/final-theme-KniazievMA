@@ -310,9 +310,6 @@
   .tw\:mb-12 {
     margin-bottom: calc(var(--tw-spacing) * 12);
   }
-  .tw\:mb-12\! {
-    margin-bottom: calc(var(--tw-spacing) * 12) !important;
-  }
   .tw\:-ml-\[50vw\]\! {
     margin-left: calc(50vw * -1) !important;
   }
@@ -444,9 +441,6 @@
   .tw\:w-22 {
     width: calc(var(--tw-spacing) * 22);
   }
-  .tw\:w-25 {
-    width: calc(var(--tw-spacing) * 25);
-  }
   .tw\:w-36 {
     width: calc(var(--tw-spacing) * 36);
   }
@@ -532,9 +526,6 @@
   }
   .tw\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .tw\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .tw\:flex-col {
     flex-direction: column;
@@ -696,9 +687,6 @@
   .tw\:p-6 {
     padding: calc(var(--tw-spacing) * 6);
   }
-  .tw\:p-11 {
-    padding: calc(var(--tw-spacing) * 11);
-  }
   .tw\:p-15 {
     padding: calc(var(--tw-spacing) * 15);
   }
@@ -707,6 +695,11 @@
   }
   .tw\:px-15 {
     padding-inline: calc(var(--tw-spacing) * 15);
+  .tw\:py-8 {
+    padding-block: calc(var(--tw-spacing) * 8);
+  }
+  .tw\:pr-8 {
+    padding-right: calc(var(--tw-spacing) * 8);
   }
   .tw\:py-8 {
     padding-block: calc(var(--tw-spacing) * 8);
@@ -1256,14 +1249,14 @@
       gap: calc(var(--tw-spacing) * 8);
     }
   }
-  .tw\:md\:gap-15 {
-    @media (width >= 48rem) {
-      gap: calc(var(--tw-spacing) * 15);
-    }
-  }
   .tw\:md\:overflow-visible {
     @media (width >= 48rem) {
       overflow: visible;
+    }
+  }
+  .tw\:md\:p-11 {
+    @media (width >= 48rem) {
+      padding: calc(var(--tw-spacing) * 11);
     }
   }
   .tw\:md\:p-11 {
