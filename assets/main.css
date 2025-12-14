@@ -438,6 +438,9 @@
   .tw\:w-36 {
     width: calc(var(--tw-spacing) * 36);
   }
+  .tw\:w-\[536px\] {
+    width: 536px;
+  }
   .tw\:w-auto {
     width: auto;
   }

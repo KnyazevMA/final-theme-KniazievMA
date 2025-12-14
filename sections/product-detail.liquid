@@ -62,9 +62,11 @@
                       {{ current_variant.price | money }}
                     </span>
                   {% endif %}
-                  <p class="tw:mt-3 tw:text-body-sm tw:leading-body-sm" data-availability-text>
-                    {{ 'products.product.select_size' | t | escape | default: 'Please select a size' -}}
-                  </p>
+                  {% if product.metafields.custom.sizes.value != blank %}
+                    <p class="tw:mt-3 tw:text-body-sm tw:leading-body-sm" data-availability-text>
+                      {{ 'products.product.select_size' | t | escape | default: 'Please select a size' -}}
+                    </p>
+                  {% endif %}
                 </div>
               {% when 'color' %}
                 {% render 'product-option-color',
