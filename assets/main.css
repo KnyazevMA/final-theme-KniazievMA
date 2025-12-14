@@ -372,6 +372,9 @@
   .tw\:h-full {
     height: 100%;
   }
+  .tw\:h-full\! {
+    height: 100% !important;
+  }
   .tw\:h-px {
     height: 1px;
   }
@@ -386,6 +389,9 @@
   }
   .tw\:max-h-52 {
     max-height: calc(var(--tw-spacing) * 52);
+  }
+  .tw\:max-h-\[500px\] {
+    max-height: 500px;
   }
   .tw\:max-h-\[536px\] {
     max-height: 536px;
@@ -431,6 +437,9 @@
   }
   .tw\:w-full {
     width: 100%;
+  }
+  .tw\:w-full\! {
+    width: 100% !important;
   }
   .tw\:w-px {
     width: 1px;
@@ -630,6 +639,9 @@
   .tw\:object-cover {
     object-fit: cover;
   }
+  .tw\:object-right {
+    object-position: right;
+  }
   .tw\:p-0 {
     padding: calc(var(--tw-spacing) * 0);
   }
@@ -651,14 +663,26 @@
   .tw\:p-15 {
     padding: calc(var(--tw-spacing) * 15);
   }
+  .tw\:px-4 {
+    padding-inline: calc(var(--tw-spacing) * 4);
+  }
   .tw\:px-15 {
     padding-inline: calc(var(--tw-spacing) * 15);
+  }
+  .tw\:pr-4 {
+    padding-right: calc(var(--tw-spacing) * 4);
+  }
+  .tw\:pr-8 {
+    padding-right: calc(var(--tw-spacing) * 8);
   }
   .tw\:pb-4 {
     padding-bottom: calc(var(--tw-spacing) * 4);
   }
   .tw\:pb-6 {
     padding-bottom: calc(var(--tw-spacing) * 6);
+  }
+  .tw\:pl-4 {
+    padding-left: calc(var(--tw-spacing) * 4);
   }
   .tw\:text-center {
     text-align: center;
@@ -1181,6 +1205,11 @@
   .tw\:md\:px-0 {
     @media (width >= 48rem) {
       padding-inline: calc(var(--tw-spacing) * 0);
+    }
+  }
+  .tw\:md\:px-15 {
+    @media (width >= 48rem) {
+      padding-inline: calc(var(--tw-spacing) * 15);
     }
   }
   .tw\:md\:text-h2 {
