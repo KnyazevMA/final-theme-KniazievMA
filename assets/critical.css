@@ -117,6 +117,14 @@ body {
 
 .page-width {
   max-width: 1440px;
-  padding-inline: 60px;
+  padding-inline: 16px;
   margin-inline: auto;
+
+  @media(min-width: 768px) {
+    padding-inline: 30px;
+  }
+
+  @media(min-width: 1024px) {
+    padding-inline: 60px;
+  }
 }

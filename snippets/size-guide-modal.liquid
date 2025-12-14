@@ -1,0 +1,50 @@
+{% if guide %}
+  <div
+    class="size-guide-modal tw:fixed tw:inset-0 tw:z-50 tw:hidden tw:flex tw:items-center tw:justify-center"
+    data-size-guide
+    data-size-guide-table="{{ guide.table | escape }}"
+    aria-hidden="true"
+  >
+    <div class="tw:absolute tw:inset-0 tw:bg-black/80" data-size-guide-overlay></div>
+    <div class="tw:relative tw:z-10 tw:max-w-[644px] tw:bg-white tw:rounded-lg tw:p-11">
+      <button
+        type="button"
+        class="tw:absolute tw:top-4 tw:right-6 tw:cursor-pointer"
+        data-size-guide-close
+        aria-label="Close size guide"
+      >
+        ✕
+      </button>
+
+      <h2 class="tw:text-h2 tw:leading-h2 tw:text-black tw:mb-4! tw:text-center">
+        {{ guide.title }}
+      </h2>
+
+      <div class="tw:overflow-x-auto">
+        <table class="tw:w-full tw:border-collapse tw:text-sm">
+          <tbody>
+            {% for row in guide.rows.value %}
+              <tr class="tw:flex tw:justify-center tw:items-center">
+                <!-- Лейбл строки -->
+                <td class="tw:p-2 tw:mr-2! tw:w-36 tw:flex tw:items-center tw:justify-center tw:text-body-lg tw:leading-body-lg">
+                  {{ row.label }}
+                </td>
+
+                <!-- Значения -->
+                {% for val in row.value.value %}
+                  <td
+                    class="
+                                                                                        tw:p-2 tw:w-25 tw:flex tw:flex-row tw:items-center tw:justify-center tw:text-body-lg tw:leading-body-lg
+                    "
+                  >
+                    {{ val }}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endif %}

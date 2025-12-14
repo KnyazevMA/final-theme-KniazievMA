@@ -5,7 +5,16 @@
 {% if sizes != blank %}
   <fieldset class="block-{{ block.id }}" data-size-selector>
     {% if block.settings.show_size_label %}
-      <legend class="tw:mb-3!">{{ label }}</legend>
+      <div class="tw:flex tw:items-center tw:justify-between tw:mb-3!">
+        <legend class="">{{ label }}</legend>
+        <button
+          type="button"
+          class="tw:text-body-md tw:leading-body-md tw:text-dark tw:underline tw:cursor-pointer"
+          data-size-guide-trigger
+        >
+          {{ 'products.product.size_guide' | t: default: 'Size guide' }}
+        </button>
+      </div>
     {% endif %}
 
     <div class="tw:grid tw:grid-cols-3 tw:gap-2">
@@ -51,5 +60,3 @@
     </div>
   </fieldset>
 {% endif %}
-
-
