@@ -30,11 +30,15 @@
         image
         | image_url: width: 2000
         | image_tag:
-          class: '     
-            tw:w-full!
-            tw:h-full!
-            tw:object-cover
-            md:tw:object-center'
+          widths: '480, 768, 1024, 1440, 2000',
+          sizes: '(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 2000px',
+          alt: title,
+          loading: 'lazy',
+          class: '
+              tw:w-full!
+              tw:h-full!
+              tw:object-cover
+              md:tw:object-center'
       }}
     </div>
   {% endif %}

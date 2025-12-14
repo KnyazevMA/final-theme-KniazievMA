@@ -32,7 +32,16 @@
           {% endif %}
           data-product-handle="{{ p.handle }}"
         >
-          {{ p.featured_image | image_url: width: 88 | image_tag: alt: p.title }}
+          {{
+            p.featured_image
+            | image_url: width: 88
+            | image_tag:
+              widths: '44, 88, 132',
+              sizes: '88px',
+              loading: 'lazy',
+              alt: p.title,
+              class: 'tw:block tw:w-full tw:h-full tw:object-cover'
+          }}
         </button>
       {% endif %}
     {% endfor %}
