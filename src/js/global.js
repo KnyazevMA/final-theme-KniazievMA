@@ -486,3 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-section="product-recommendations"]')
         .forEach(el => new ProductRecommendationsSection(el));
 });
+
+window.addEventListener('product:updated', () => {
+    console.log('🔥 PRODUCT UPDATED — REINIT');
+});
