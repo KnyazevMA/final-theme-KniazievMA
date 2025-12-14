@@ -17,7 +17,12 @@
       </div>
     {% endif %}
 
-    <div class="tw:grid tw:grid-cols-3 tw:gap-2">
+    <div
+      class="
+        tw:grid tw:grid-cols-2 tw:gap-2
+        tw:md:grid-cols-3
+      "
+    >
       {% for size in sizes %}
         {% assign label = size.name %}
         {% assign variant = null %}
