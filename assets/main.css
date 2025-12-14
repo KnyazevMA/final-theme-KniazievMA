@@ -639,6 +639,12 @@
   .tw\:bg-gray-200 {
     background-color: var(--tw-color-gray-200);
   }
+  .tw\:bg-gray-500 {
+    background-color: var(--tw-color-gray-500);
+  }
+  .tw\:bg-gray-700 {
+    background-color: var(--tw-color-gray-700);
+  }
   .tw\:bg-gray-800 {
     background-color: var(--tw-color-gray-800);
   }
