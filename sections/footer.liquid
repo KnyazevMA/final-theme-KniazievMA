@@ -18,9 +18,13 @@
           "
           id="footer-title-{{ block.id }}"
         >
+          <span class="tw:hidden tw:sm:block">
+            {{ block.settings.title }}
+          </span>
+
           <button
             class="
-              footer__btn
+              tw:sm:hidden
               tw:w-full tw:flex tw:items-center tw:justify-between
               tw:relative tw:text-left tw:bg-transparent tw:border-none
               tw:group-data-active:pb-4
@@ -40,7 +44,6 @@
                 tw:rotate-45 tw:transition-transform
                 tw:group-data-active:rotate-220
               "
-              role="presentation"
               aria-hidden="true"
             ></span>
           </button>
@@ -66,7 +69,10 @@
           >
             {% for link in block.settings.menu.links %}
               <li>
-                <a class="tw:text-gray-500 tw:transition tw:duration-300 tw:hover:text-black tw:focus-visible:text-black" href="{{ link.url }}">
+                <a
+                  class="tw:text-gray-500 tw:transition tw:duration-300 tw:hover:text-black tw:focus-visible:text-black"
+                  href="{{ link.url }}"
+                >
                   {{- link.title -}}
                 </a>
               </li>

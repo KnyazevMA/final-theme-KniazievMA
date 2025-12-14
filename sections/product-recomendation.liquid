@@ -9,22 +9,22 @@
       class="
         tw:flex tw:justify-center
         tw:text-h2--mobile tw:leading-8 tw:mb-8!
-        tw:md:mb-12! tw:md:text-h2 tw:md:leading-h2 
+        tw:md:mb-12! tw:md:text-h2 tw:md:leading-h2
       "
     >
       {{ section.settings.heading }}
     </h2>
     <div class="wrapper tw:relative">
       <div class="swiper js-product-recommendations-swiper">
-        <ul class="swiper-wrapper tw:m-0 tw:p-0 tw:list-none">
+        <div class="swiper-wrapper">
           {% if recommendations.performed and recommendations.products_count > 0 %}
             {% for product in recommendations.products %}
-              <li class="swiper-slide">
+              <div class="swiper-slide">
                 {% render 'product-card', product: product %}
-              </li>
+              </div>
             {% endfor %}
           {% endif %}
-        </ul>
+        </div>
       </div>
       <button
         class="
