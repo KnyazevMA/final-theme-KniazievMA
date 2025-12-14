@@ -81,7 +81,8 @@
       "in_stock": "In Stock",
       "in_stock_qty": "In Stock · ",
       "out_of_stock": "Out of Stock",
-      "sold_out": "Sorry, this product is out of stock"
+      "sold_out": "Sorry, this product is out of stock",
+      "size_guide": "Size guide"
     }
   }
 }

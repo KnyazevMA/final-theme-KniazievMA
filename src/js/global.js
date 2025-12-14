@@ -123,6 +123,7 @@ class ProductPageLoader {
         document.querySelectorAll('[data-faq]').forEach(el => new ProductAccordion(el));
         document.querySelectorAll('[data-section="product-recommendations"]')
             .forEach(el => new ProductRecommendationsSection(el));
+        new SizeGuide();
     }
 
     replaceSection(sectionId, html) {
@@ -226,6 +227,40 @@ class SizeSelector {
         if (!hasAvailableVariant) {
             this.output.textContent = this.texts.soldOut;
         }
+    }
+}
+
+class SizeGuide {
+    constructor() {
+        this.modal = document.querySelector('[data-size-guide]');
+        if (!this.modal) return;
+
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('[data-size-guide-trigger]')) {
+                this.open();
+            }
+
+            if (
+                e.target.closest('[data-size-guide-close]') ||
+                e.target.closest('[data-size-guide-overlay]')
+            ) {
+                this.close();
+            }
+        });
+    }
+
+    open() {
+        this.modal.classList.remove('tw:hidden');
+        this.modal.setAttribute('aria-hidden', 'false');
+    }
+
+    close() {
+        this.modal.classList.add('tw:hidden');
+        this.modal.setAttribute('aria-hidden', 'true');
     }
 }
 
@@ -389,6 +424,7 @@ class ProductRecommendationsSection {
 
 document.addEventListener('DOMContentLoaded', () => {
     new ProductPageLoader();
+    new SizeGuide();
     document.querySelectorAll('[data-color-selector]').forEach(el => new ColorSelector(el));
     document.querySelectorAll('[data-size-selector]').forEach(el => new SizeSelector(el));
     document.querySelectorAll('form#ProductForm').forEach(f => new ProductForm(f));
