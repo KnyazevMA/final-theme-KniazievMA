@@ -38,8 +38,16 @@
     {% if img_value %}
       {{
         img_value
-        | image_url: width: 536
-        | image_tag: alt: product.title, class: 'tw:block tw:w-full tw:h-full tw:object-cover', data-big: ''
+        | image_url: width: 1200
+        | image_tag:
+          widths: '400, 600, 800, 1000, 1200',
+          sizes: '(min-width: 1024px) 536px, 100vw',
+          class: 'tw:block tw:w-full tw:h-full tw:object-cover',
+          alt: product.title,
+          loading: 'eager',
+          fetchpriority: 'high',
+          format: 'webp',
+          data-big: ''
       }}
     {% else %}
       {{ 'image' | placeholder_svg_tag }}
