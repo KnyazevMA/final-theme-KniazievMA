@@ -1,17 +1,15 @@
-<nav class="main-nav tw:justify-center tw:hidden tw:md:flex" aria-label="{{ 'a11y.main_nav' | t }}">
+<nav class="tw:justify-center tw:hidden tw:md:flex" aria-label="{{ 'a11y.main_nav' | t }}">
   {%- if main_menu and main_menu.links.size > 0 -%}
     <ul
       class="
-        main-nav__list
         tw:inline-flex tw:gap-6 tw:list-none tw:m-0 tw:p-0
         tw:lg:gap-4
       "
     >
       {%- for link in main_menu.links -%}
-        <li class="main-nav__item">
+        <li>
           <a
             class="
-              main-nav__link
               tw:no-underline tw:text-black tw:font-medium
               tw:transition-colors tw:duration-200
               tw:hover:text-blue-600
