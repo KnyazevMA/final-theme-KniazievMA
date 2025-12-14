@@ -7,13 +7,20 @@
 
 <section class="product-detail" data-section-id="{{ section.id }}" data-section-type="product-detail">
   <div class="page-width">
-    <div class="tw:grid tw:grid-cols-2 tw:gap-15">
+    <div
+      class="
+        tw:grid tw:grid-cols-1 tw:gap-6
+        tw:md:grid-cols-2 tw:md:gap-15
+      "
+    >
       {% render 'product-media', product: product %}
       <div>
         {% for block in section.blocks %}
           {% case block.type %}
             {% when 'title' %}
-              <h1 class="tw:mb-2 tw:text-h2 tw:leading-h2 block-{{ block.id }}">
+              <h1
+                class="tw:text-h2--mobile tw:leading-8 tw:md:text-h2 tw:md:leading-h2  block-{{ block.id }}"
+              >
                 {{ product.title }}
               </h1>
 
@@ -34,7 +41,6 @@
 
         {%- form 'product', product, id: 'ProductForm' -%}
           {% for block in section.blocks %}
-            {% assign info = block.settings.shipping_info %}
             {% case block.type %}
               {% when 'price' %}
                 <div class="block-{{ block.id }} tw:flex tw:justify-between tw:items-center">
@@ -79,14 +85,14 @@
                 %}
             {% endcase %}
           {% endfor %}
-
           <input type="hidden" name="id" value="{{ current_variant.id }}">
         {%- endform -%}
-        <div class="tw:flex tw:flex-col tw:gap-6 tw:mb-8!">
+        <div class="tw:flex tw:flex-col tw:gap-6 tw:mb-6! tw:md:mb-8!">
           <div class="tw:flex tw:flex-col tw:gap-3">
             {% for block in section.blocks %}
               {% case block.type %}
                 {% when 'shipping_info' %}
+                  {% assign info = block.settings.shipping_info %}
                   {% if info %}
                     <div class="tw:flex tw:items-center tw:gap-1.5 tw:text-body-md tw:text-black">
                       {%- if info.icon != blank -%}

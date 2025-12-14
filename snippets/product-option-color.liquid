@@ -1,9 +1,9 @@
 {% assign related_colors = product.metafields.custom.related_colors.value %}
 
 {% if related_colors != blank %}
-  <fieldset class="tw:flex tw:gap-2 tw:mt-4 block-{{ block.id }}" data-color-selector>
+  <fieldset class="tw:flex tw:gap-2 block-{{ block.id }}" data-color-selector>
     {% if block.settings.show_color_label %}
-      <legend class="tw:mb-2! tw:text-body-md tw:leading-body-md">{{ legend }}</legend>
+      <legend class="tw:mb-3! tw:text-body-md tw:leading-body-md">{{ legend }}</legend>
     {% endif %}
     {% for item in related_colors %}
       {% assign p = item | product %}
