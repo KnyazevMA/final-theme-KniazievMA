@@ -17,28 +17,28 @@
         "column_HjU6xU": {
           "type": "column",
           "settings": {
-            "title": "",
+            "title": "Company",
             "menu": "footer-company"
           }
         },
         "column_wXFqjK": {
           "type": "column",
           "settings": {
-            "title": "",
+            "title": "Help",
             "menu": "help"
           }
         },
         "column_YNjTdF": {
           "type": "column",
           "settings": {
-            "title": "",
+            "title": "Resources",
             "menu": "footer"
           }
         },
         "column_EC43ee": {
           "type": "column",
           "settings": {
-            "title": "",
+            "title": "Menu",
             "menu": "main-menu"
           }
         }
