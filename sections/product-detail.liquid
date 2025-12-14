@@ -13,7 +13,11 @@
         tw:lg:grid-cols-2! tw:xl:gap-15
       "
     >
-      {% render 'product-media', product: product %}
+      <div class="tw:relative">
+        <div class="tw:lg:sticky tw:lg:top-12">
+          {% render 'product-media', product: product %}
+        </div>
+      </div>
       <div>
         {% for block in section.blocks %}
           {% case block.type %}
