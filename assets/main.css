@@ -18,21 +18,32 @@
     --tw-color-neutral-200: oklch(92.2% 0 0);
     --tw-color-neutral-700: oklch(37.1% 0 0);
     --tw-color-neutral-900: oklch(20.5% 0 0);
+    --tw-color-neutral-950: oklch(14.5% 0 0);
     --tw-color-black: #111111;
     --tw-color-white: #fff;
     --tw-spacing: 0.25rem;
+    --tw-container-xl: 36rem;
     --tw-container-2xl: 42rem;
     --tw-container-3xl: 48rem;
     --tw-text-xs: 0.75rem;
     --tw-text-xs--line-height: calc(1 / 0.75);
     --tw-text-sm: 0.875rem;
     --tw-text-sm--line-height: calc(1.25 / 0.875);
+    --tw-text-lg: 1.125rem;
+    --tw-text-lg--line-height: calc(1.75 / 1.125);
     --tw-text-xl: 1.25rem;
     --tw-text-xl--line-height: calc(1.75 / 1.25);
+    --tw-text-2xl: 1.5rem;
+    --tw-text-2xl--line-height: calc(2 / 1.5);
+    --tw-text-3xl: 1.875rem;
+    --tw-text-3xl--line-height: calc(2.25 / 1.875);
     --tw-font-weight-medium: 500;
     --tw-font-weight-bold: 700;
     --tw-radius-sm: 0.25rem;
     --tw-radius-lg: 0.5rem;
+    --tw-radius-2xl: 1rem;
+    --tw-ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --tw-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --tw-default-transition-duration: 150ms;
     --tw-default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --tw-default-font-family: var(--tw-font-sans);
@@ -223,6 +234,9 @@
   .tw\:-top-1\.5 {
     top: calc(var(--tw-spacing) * -1.5);
   }
+  .tw\:top-1\.5 {
+    top: calc(var(--tw-spacing) * 1.5);
+  }
   .tw\:top-1\/2 {
     top: calc(1/2 * 100%);
   }
@@ -240,6 +254,9 @@
   }
   .tw\:right-\[-2\%\]\! {
     right: -2% !important;
+  }
+  .tw\:left-0 {
+    left: calc(var(--tw-spacing) * 0);
   }
   .tw\:left-1\/2 {
     left: calc(1/2 * 100%);
@@ -794,6 +811,9 @@
     transition-timing-function: var(--tw-ease, var(--tw-default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--tw-default-transition-duration));
   }
+  .tw\:delay-600 {
+    transition-delay: 600ms;
+  }
   .tw\:duration-200 {
     --tw-duration: 200ms;
     transition-duration: 200ms;
@@ -802,9 +822,38 @@
     --tw-duration: 300ms;
     transition-duration: 300ms;
   }
+  .tw\:ease-in {
+    --tw-ease: var(--tw-ease-in);
+    transition-timing-function: var(--tw-ease-in);
+  }
   .tw\:ease-linear {
     --tw-ease: linear;
     transition-timing-function: linear;
+  }
+  .tw\:group-data-active\:top-0 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      top: calc(var(--tw-spacing) * 0);
+    }
+  }
+  .tw\:group-data-active\:-rotate-45 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      rotate: calc(45deg * -1);
+    }
+  }
+  .tw\:group-data-active\:rotate-45 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      rotate: 45deg;
+    }
+  }
+  .tw\:group-data-active\:bg-transparent {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      background-color: transparent;
+    }
+  }
+  .tw\:group-data-active\:delay-300 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      transition-delay: 300ms;
+    }
   }
   .tw\:peer-checked\:cursor-auto {
     &:is(:where(.tw\:peer):checked ~ *) {
@@ -836,6 +885,31 @@
   .tw\:peer-disabled\:bg-gray-100 {
     &:is(:where(.tw\:peer):disabled ~ *) {
       background-color: var(--tw-color-gray-100);
+    }
+  }
+  .tw\:peer-data-active\:top-0 {
+    &:is(:where(.tw\:peer)[data-active="true"] ~ *) {
+      top: calc(var(--tw-spacing) * 0);
+    }
+  }
+  .tw\:peer-data-active\:-rotate-45 {
+    &:is(:where(.tw\:peer)[data-active="true"] ~ *) {
+      rotate: calc(45deg * -1);
+    }
+  }
+  .tw\:peer-data-active\:rotate-45 {
+    &:is(:where(.tw\:peer)[data-active="true"] ~ *) {
+      rotate: 45deg;
+    }
+  }
+  .tw\:peer-data-active\:bg-transparent {
+    &:is(:where(.tw\:peer)[data-active="true"] ~ *) {
+      background-color: transparent;
+    }
+  }
+  .tw\:peer-data-active\:delay-300 {
+    &:is(:where(.tw\:peer)[data-active="true"] ~ *) {
+      transition-delay: 300ms;
     }
   }
   .tw\:after\:absolute {
@@ -986,6 +1060,11 @@
       background-color: var(--tw-color-gray-300);
     }
   }
+  .tw\:data-\[active\=true\]\:bg-transparent {
+    &[data-active="true"] {
+      background-color: transparent;
+    }
+  }
   .tw\:max-md\:flex {
     @media (width < 48rem) {
       display: flex;
@@ -1120,6 +1199,11 @@
   .tw\:data-active\:rotate-90 {
     &[data-active="true"] {
       rotate: 90deg;
+    }
+  }
+  .tw\:data-active\:bg-transparent {
+    &[data-active="true"] {
+      background-color: transparent;
     }
   }
   .tw\:data-active\:px-4 {
