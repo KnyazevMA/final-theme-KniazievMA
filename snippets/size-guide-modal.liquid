@@ -6,17 +6,17 @@
     aria-hidden="true"
   >
     <div class="tw:absolute tw:inset-0 tw:bg-black/80" data-size-guide-overlay></div>
-    <div class="tw:relative tw:z-10 tw:max-w-[644px] tw:bg-white tw:rounded-lg tw:p-11">
+    <div class="tw:relative tw:z-10 tw:max-w-[644px] tw:bg-white tw:rounded-lg tw:px-4 tw:py-8 tw:md:p-11">
       <button
         type="button"
-        class="tw:absolute tw:top-4 tw:right-6 tw:cursor-pointer"
+        class="tw:absolute tw:top-2.5 tw:right-2.5 tw:md:top-4 tw:md:right-6 tw:cursor-pointer"
         data-size-guide-close
         aria-label="Close size guide"
       >
         ✕
       </button>
 
-      <h2 class="tw:text-h2 tw:leading-h2 tw:text-black tw:mb-4! tw:text-center">
+      <h2 class="tw:text-h2--mobile tw:leading-8 tw:md:text-h2 tw:md:leading-h2 tw:text-black tw:mb-4! tw:text-center">
         {{ guide.title }}
       </h2>
 
@@ -34,7 +34,7 @@
                 {% for val in row.value.value %}
                   <td
                     class="
-                                                                                        tw:p-2 tw:w-25 tw:flex tw:flex-row tw:items-center tw:justify-center tw:text-body-lg tw:leading-body-lg
+                      tw:p-2 tw:w-13 tw:md:w-25 tw:flex tw:flex-row tw:items-center tw:justify-center tw:text-body-lg tw:leading-body-lg
                     "
                   >
                     {{ val }}

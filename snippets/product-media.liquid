@@ -19,9 +19,9 @@
 
 <div
   class="
-    tw:flex tw:flex-col
+    tw:flex tw:flex-col tw:justify-center
     tw:md:flex-row-reverse
-    tw:gap-4 tw:md:gap-6
+    tw:gap-4 tw:xl:gap-6
     tw:max-w-full
   "
   data-gallery
@@ -49,10 +49,12 @@
   {% if product.media.size > 1 %}
     <div
       class="
-        tw:flex tw:gap-3
+        tw:flex tw:gap-3 tw:justify-start
         tw:overflow-x-auto
         tw:-mx-4
+        tw:sm:justify-center
         tw:md:flex-col
+        tw:md:justify-start
         tw:md:overflow-visible
         tw:md:mx-0 tw:md:px-0
       "
@@ -84,10 +86,13 @@
                 <button
                   type="button"
                   class="
-                    tw:w-22 tw:h-22 tw:rounded-lg tw:overflow-hidden tw:relative
+                    tw:w-22 tw:h-22
+                    tw:rounded-lg tw:overflow-hidden tw:relative
                     tw:cursor-pointer tw:bg-transparent tw:flex-none
                     tw:hover:border tw:hover:border-black/30
                     tw:focus-visible:outline-none
+                    tw:lg:w-18 tw:lg:h-18
+                    tw:xl:w-22 tw:xl:h-22
                     thumb
                   "
                   data-large="{{ v.featured_image | image_url: width: 800 }}"
@@ -139,6 +144,8 @@
                   tw:w-22 tw:h-22 tw:rounded-lg tw:overflow-hidden tw:relative
                   tw:cursor-pointer tw:flex-none
                   tw:hover:border tw:hover:border-black/30
+                  tw:lg:w-18! tw:lg:h-18!
+                  tw:xl:w-22! tw:xl:h-22!
                   thumb
                 "
                 data-large="{{ m | image_url: width: 800 }}"
