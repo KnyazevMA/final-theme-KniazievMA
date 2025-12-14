@@ -106,7 +106,11 @@
                   data-large="{{ v.featured_image | image_url: width: 800 }}"
                   data-thumb="{{ forloop.index0 }}"
                 >
-                  {% render 'image', image: v.featured_image, width: 88, class: 'tw:w-full tw:h-full tw:object-cover' %}
+                  {% render 'image',
+                    image: v.featured_image,
+                    width: 176,
+                    class: 'tw:w-full tw:h-full tw:object-cover'
+                  %}
 
                   {% assign big_url = img_value | image_url: width: 800 %}
                   {% assign thumb_url = v.featured_image | image_url: width: 800 %}
@@ -159,7 +163,16 @@
                 data-large="{{ m | image_url: width: 800 }}"
                 data-thumb="{{ forloop.index0 }}"
               >
-                {{ m | image_url: width: 88 | image_tag }}
+                {{
+                  m
+                  | image_url: width: 176
+                  | image_tag:
+                    widths: '88, 176, 264',
+                    sizes: '88px',
+                    loading: 'lazy',
+                    class: 'tw:w-full tw:h-full tw:object-cover',
+                    alt: product.title
+                }}
 
                 {% assign big_url = img_value | image_url: width: 800 %}
                 {% assign thumb_url = m | image_url: width: 800 %}
