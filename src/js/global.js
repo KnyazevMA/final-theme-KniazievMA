@@ -446,10 +446,38 @@ class DataActiveToggle {
     }
 }
 
+class FooterAccordion {
+    constructor(selector = '[data-toggle-active]') {
+        this.buttons = document.querySelectorAll(selector);
+        if (!this.buttons.length) return;
+
+        this.bind();
+    }
+
+    bind() {
+        this.buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                this.toggle(button);
+            });
+        });
+    }
+
+    toggle(button) {
+        const parent = button.closest('[data-footer-item]');
+        if (!parent) return;
+
+        const isActive = parent.dataset.active === 'true';
+
+        parent.dataset.active = String(!isActive);
+        button.setAttribute('aria-expanded', String(!isActive));
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     new ProductPageLoader();
     new SizeGuide();
     new DataActiveToggle('[data-toggle-active]');
+    new FooterAccordion('[data-toggle-active]')
     document.querySelectorAll('[data-color-selector]').forEach(el => new ColorSelector(el));
     document.querySelectorAll('[data-size-selector]').forEach(el => new SizeSelector(el));
     document.querySelectorAll('form#ProductForm').forEach(f => new ProductForm(f));

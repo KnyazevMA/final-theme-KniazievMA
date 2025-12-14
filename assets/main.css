@@ -291,6 +291,9 @@
   .tw\:mr-2\! {
     margin-right: calc(var(--tw-spacing) * 2) !important;
   }
+  .tw\:mb-0\! {
+    margin-bottom: calc(var(--tw-spacing) * 0) !important;
+  }
   .tw\:mb-2 {
     margin-bottom: calc(var(--tw-spacing) * 2);
   }
@@ -496,6 +499,9 @@
     --tw-translate-y: calc(calc(1/2 * 100%) * -1);
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
+  .tw\:-rotate-135 {
+    rotate: calc(135deg * -1);
+  }
   .tw\:rotate-45 {
     rotate: 45deg;
   }
@@ -519,6 +525,9 @@
   }
   .tw\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .tw\:grid-rows-\[0fr\] {
+    grid-template-rows: 0fr;
   }
   .tw\:flex-col {
     flex-direction: column;
@@ -796,6 +805,11 @@
     transition-timing-function: var(--tw-ease, var(--tw-default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--tw-default-transition-duration));
   }
+  .tw\:transition-\[grid-template-rows\] {
+    transition-property: grid-template-rows;
+    transition-timing-function: var(--tw-ease, var(--tw-default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--tw-default-transition-duration));
+  }
   .tw\:transition-all {
     transition-property: all;
     transition-timing-function: var(--tw-ease, var(--tw-default-transition-timing-function));
@@ -835,6 +849,26 @@
       top: calc(var(--tw-spacing) * 0);
     }
   }
+  .tw\:group-data-active\:mb-0 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      margin-bottom: calc(var(--tw-spacing) * 0);
+    }
+  }
+  .tw\:group-data-active\:mb-4\! {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      margin-bottom: calc(var(--tw-spacing) * 4) !important;
+    }
+  }
+  .tw\:group-data-active\:max-h-92 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      max-height: calc(var(--tw-spacing) * 92);
+    }
+  }
+  .tw\:group-data-active\:max-h-\[500px\] {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      max-height: 500px;
+    }
+  }
   .tw\:group-data-active\:-rotate-45 {
     &:is(:where(.tw\:group)[data-active="true"] *) {
       rotate: calc(45deg * -1);
@@ -845,9 +879,59 @@
       rotate: 45deg;
     }
   }
+  .tw\:group-data-active\:rotate-135 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      rotate: 135deg;
+    }
+  }
+  .tw\:group-data-active\:rotate-180 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      rotate: 180deg;
+    }
+  }
+  .tw\:group-data-active\:rotate-190 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      rotate: 190deg;
+    }
+  }
+  .tw\:group-data-active\:rotate-210 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      rotate: 210deg;
+    }
+  }
+  .tw\:group-data-active\:rotate-220 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      rotate: 220deg;
+    }
+  }
+  .tw\:group-data-active\:rotate-230 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      rotate: 230deg;
+    }
+  }
+  .tw\:group-data-active\:grid-rows-1 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      grid-template-rows: repeat(1, minmax(0, 1fr));
+    }
+  }
+  .tw\:group-data-active\:grid-rows-\[1fr\] {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      grid-template-rows: 1fr;
+    }
+  }
   .tw\:group-data-active\:bg-transparent {
     &:is(:where(.tw\:group)[data-active="true"] *) {
       background-color: transparent;
+    }
+  }
+  .tw\:group-data-active\:pb-4 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      padding-bottom: calc(var(--tw-spacing) * 4);
+    }
+  }
+  .tw\:group-data-active\:opacity-100 {
+    &:is(:where(.tw\:group)[data-active="true"] *) {
+      opacity: 100%;
     }
   }
   .tw\:group-data-active\:delay-300 {
@@ -1044,6 +1128,11 @@
       background-color: var(--tw-color-gray-700);
     }
   }
+  .tw\:focus-visible\:text-black {
+    &:focus-visible {
+      color: var(--tw-color-black);
+    }
+  }
   .tw\:focus-visible\:outline-none {
     &:focus-visible {
       --tw-outline-style: none;
@@ -1080,6 +1169,11 @@
       pointer-events: none;
     }
   }
+  .tw\:sm\:block {
+    @media (width >= 40rem) {
+      display: block;
+    }
+  }
   .tw\:sm\:flex {
     @media (width >= 40rem) {
       display: flex;
@@ -1113,6 +1207,11 @@
   .tw\:sm\:gap-3 {
     @media (width >= 40rem) {
       gap: calc(var(--tw-spacing) * 3);
+    }
+  }
+  .tw\:sm\:gap-6 {
+    @media (width >= 40rem) {
+      gap: calc(var(--tw-spacing) * 6);
     }
   }
   .tw\:sm\:overflow-visible {
