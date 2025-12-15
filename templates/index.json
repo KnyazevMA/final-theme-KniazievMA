@@ -13,8 +13,13 @@
       "type": "collections",
       "name": "t:general.collections_grid",
       "settings": {
-        "grid_item_width": "collections--full",
-        "grid_gap": 10
+        "title": "Our Collections",
+        "collections": [
+          "autumn-collection",
+          "summer-collection-under-100",
+          "winter-collection"
+        ],
+        "button_label": "View All"
       }
     }
   },
