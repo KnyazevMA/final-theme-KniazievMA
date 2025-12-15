@@ -95,6 +95,18 @@ function initProductUI() {
         .forEach(form => new ProductForm(form));
 }
 
+function updateMiniCartCount() {
+    fetch('/cart.js')
+        .then(res => res.json())
+        .then(cart => {
+            const counter = document.getElementById('MiniCartCount');
+            if (!counter) return;
+
+            counter.textContent = cart.item_count;
+        })
+        .catch(() => { });
+}
+
 class ProductPageLoader {
     constructor() {
         this.onProductChange = this.onProductChange.bind(this);
@@ -310,6 +322,8 @@ class ProductForm {
             if (!response.ok) {
                 throw new Error(`Ошибка: ${response.status}`);
             }
+
+            updateMiniCartCount();
 
         } catch (error) {
             console.error('Cart error:', error);
