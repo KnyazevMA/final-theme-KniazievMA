@@ -508,9 +508,56 @@ class FooterAccordion {
     }
 }
 
+class RemoveFromCart {
+    constructor(context = document) {
+        this.context = context;
+        this.init();
+    }
+
+    init() {
+        this.context.addEventListener('click', (event) => {
+            const button = event.target.closest('[data-cart-remove]');
+            if (!button) return;
+
+            event.preventDefault();
+            this.removeItem(button);
+        });
+    }
+
+    async removeItem(button) {
+        const key = button.dataset.cartRemove;
+        if (!key) return;
+
+        button.disabled = true;
+
+        try {
+            await fetch('/cart/change.js', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    id: key,
+                    quantity: 0
+                })
+            });
+
+            if (window.location.pathname.includes('/cart')) {
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Remove from cart error:', error);
+        } finally {
+            button.disabled = false;
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     new ProductPageLoader();
     new SizeGuide();
+    new RemoveFromCart(document);
     new DataActiveToggle('[data-toggle-active]');
     new FooterAccordion('[data-toggle-active]');
     initProductUI();
