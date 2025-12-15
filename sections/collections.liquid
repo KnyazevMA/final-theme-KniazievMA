@@ -1,81 +1,95 @@
-{% comment %}
-  This section is used in the list-collections template to render a list of
-  collections.
+<section id="collections-list-{{ section.id }}" class="tw:py-16">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <h2 class="tw:text-3xl tw:font-bold tw:mb-8! tw:text-center">
+        {{ section.settings.title }}
+      </h2>
+    {%- endif -%}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
-{% endcomment %}
+    {% if section.settings.collections == blank %}
+      <p class="tw:text-center tw:text-gray-500">Оберіть колекції в налаштуваннях секції</p>
+    {% else %}
+      <div
+        class="
+          tw:grid
+          tw:gap-8
+          tw:grid-cols-1
+          tw:sm:grid-cols-2
+          tw:md:grid-cols-3
+        "
+      >
+        {%- for collection in section.settings.collections -%}
+          {% if collection.all_products_count > 0 %}
+            <a
+              href="{{ collection.url }}"
+              class="tw:flex tw:flex-col tw:gap-4 tw:justify-between tw:rounded-lg tw:shadow-sm tw:border tw:border-gray-200 tw:hover:shadow-md tw:transition"
+            >
+              <div class="tw:w-full tw:overflow-hidden tw:bg-gray-100 tw:rounded-md tw:flex tw:shrink-0">
+                {% if collection.image %}
+                  {{
+                    collection.image
+                    | image_url: width: 600
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '(max-width: 768px) 100vw, 33vw',
+                      widths: '300, 450, 600, 900',
+                      alt: collection.title,
+                      class: 'tw:w-full tw:h-full tw:object-cover tw:transition'
+                  }}
+                {% else %}
+                  {{ 'collection-1' | placeholder_svg_tag }}
+                {% endif %}
+              </div>
 
-<h1>{{ 'collections.title' | t }}</h1>
+              <div class="tw:flex tw:flex-col tw:items-center tw:w-full">
+                <h2 class="tw:text-h2-mobile tw:leading-8 tw:md:text-h2 tw:md:leading-h2 tw:mb-2! tw:text-center">
+                  {{ collection.title }}
+                </h2>
 
-<div
-  class="collections {{ section.settings.grid_item_width }}"
-  style="--grid-gap: {{ section.settings.grid_gap }}px"
->
-  {% for collection in collections %}
-    <a class="collection-card" href="{{ collection.url }}">
-      {% if collection.featured_image %}
-        {% render 'image',
-          class: 'collection-card__image',
-          image: collection.featured_image,
-          width: 600,
-          height: 600,
-          crop: 'center'
-        %}
-      {% endif %}
+                {% if collection.description != blank %}
+                  <p class="tw:text-gray-700 tw:text-body-lg tw:leading-body-lg tw:mb-4! tw:text-center">
+                    {{ collection.description | strip_html | truncate: 100 }}
+                  </p>
+                {% endif %}
 
-      <div class="collection-card__content">
-        <p>{{ collection.title }}</p>
-
-        {% if collection.description %}
-          <p>{{ collection.description | strip_html | truncatewords: 15 }}</p>
-        {% endif %}
+                <span class="tw:text-body-md tw:leading-body-md tw:text-gray-700">
+                  {{ collection.all_products_count }}
+                  {{ 'products.product.goods' | t: default: 'goods' }}
+                </span>
+                <span
+                  class="tw:flex tw:justify-center tw:items-center tw:mt-auto! tw:p-3 tw:w-full tw:bg-black tw:text-white tw:rounded-lg tw:hover:bg-gray-800 tw:transition"
+                >
+                  {{ section.settings.button_label }}
+                </span>
+              </div>
+            </a>
+          {% endif %}
+        {%- endfor -%}
       </div>
-    </a>
-  {% endfor %}
-</div>
-
-{% stylesheet %}
-  .collections {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(var(--collection-card-size), 100%), 1fr));
-    gap: var(--grid-gap);
-  }
-  .collections--compact {
-    --collection-card-size: 160px;
-  }
-  .collections--full {
-    --collection-card-size: 280px;
-  }
-  .collection-card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-{% endstylesheet %}
+    {% endif %}
+  </div>
+</section>
 
 {% schema %}
 {
   "name": "t:general.collections_grid",
   "settings": [
     {
-      "type": "select",
-      "id": "grid_item_width",
-      "label": "t:labels.grid_item_width",
-      "options": [
-        { "value": "collections--compact", "label": "t:options.size.small" },
-        { "value": "collections--full", "label": "t:options.size.large" }
-      ],
-      "default": "collections--full"
+      "type": "text",
+      "id": "title",
+      "label": "t:options.title",
+      "default": "t:defaults.collections_grid.title"
     },
     {
-      "type": "range",
-      "id": "grid_gap",
-      "label": "t:labels.grid_gap",
-      "min": 0,
-      "max": 50,
-      "step": 5,
-      "unit": "px",
-      "default": 10
+      "type": "collection_list",
+      "id": "collections",
+      "label": "t:options.collections"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:options.button_label",
+      "default": "t:defaults.collections_grid.button_label"
     }
   ],
   "presets": [{ "name": "t:general.collections_grid" }]

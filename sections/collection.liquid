@@ -1,47 +1,21 @@
-{% comment %}
-  This section is used in the collection template to render collection page
-  listing all products within a collection.
+<section id="shopify-section-{{ section.id }}" class="collection tw:py-10 tw:px-4">
+  <div class="page-width">
+    <h1 class="tw:text-4xl tw:font-bold tw:text-center tw:mb-6!">
+      {{ collection.title }}
+    </h1>
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
-{% endcomment %}
-
-<h1>{{ collection.title }}</h1>
-
-<div class="collection-products">
-  {% paginate collection.products by 20 %}
-    {% for product in collection.products %}
-      <div class="collection-product">
-        {% if product.featured_image %}
-          {% render 'image',
-            class: 'collection-product__image',
-            image: product.featured_image,
-            url: product.url,
-            width: 400,
-            height: 400,
-            crop: 'center'
-          %}
-        {% endif %}
-        <div class="collection-product__content">
-          <p>{{ product.title | escape | link_to: product.url }}</p>
-          <p>{{ product.price | money }}</p>
-        </div>
+    {% if collection.description != blank %}
+      <div class="tw:max-w-3xl tw:mx-auto! tw:mb-10! tw:text-center">
+        {{ collection.description | strip_html | strip }}
       </div>
-    {% endfor %}
+    {% endif %}
 
-    {{ paginate | default_pagination }}
-  {% endpaginate %}
-</div>
-
-{% stylesheet %}
-  .collection-products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  }
-{% endstylesheet %}
-
-{% schema %}
-{
-  "name": "t:general.collection",
-  "settings": []
-}
-{% endschema %}
+    <div class="collection-grid tw:grid tw:gap-8 tw:grid-cols-1 tw:sm:grid-cols-2 tw:lg:grid-cols-4">
+      {% for product in collection.products %}
+        {% render 'product-card', product: product, settings: section.settings %}
+      {% else %}
+        <p class="tw:text-center tw:col-span-full tw:py-20 tw:text-xl">Товарів немає 😔</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

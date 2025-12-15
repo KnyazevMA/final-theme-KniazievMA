@@ -50,6 +50,8 @@
     "text": "Text"
   },
   "options": {
+    "collections": "Collections to show",
+    "button_label": "Button label",
     "alignment": {
       "left": "Left",
       "center": "Center",
@@ -72,5 +74,11 @@
       "subtitle": "Subtitle",
       "normal": "Normal text"
     },
+  },
+  "defaults": {
+    "collections_grid": {
+      "title": "Our Collections",
+      "button_label": "View All"
+    }
   }
 }
