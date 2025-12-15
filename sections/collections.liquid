@@ -7,7 +7,9 @@
     {%- endif -%}
 
     {% if section.settings.collections == blank %}
-      <p class="tw:text-center tw:text-gray-500">Оберіть колекції в налаштуваннях секції</p>
+      <p class="tw:text-center tw:text-gray-500">
+        {{ 'collections.empty' | t: default: 'Please select collections in the section settings' }}
+      </p>
     {% else %}
       <div
         class="
@@ -19,51 +21,49 @@
         "
       >
         {%- for collection in section.settings.collections -%}
-          {% if collection.all_products_count > 0 %}
-            <a
-              href="{{ collection.url }}"
-              class="tw:flex tw:flex-col tw:gap-4 tw:justify-between tw:rounded-lg tw:shadow-sm tw:border tw:border-gray-200 tw:hover:shadow-md tw:transition"
-            >
-              <div class="tw:w-full tw:overflow-hidden tw:bg-gray-100 tw:rounded-md tw:flex tw:shrink-0">
-                {% if collection.image %}
-                  {{
-                    collection.image
-                    | image_url: width: 600
-                    | image_tag:
-                      loading: 'lazy',
-                      sizes: '(max-width: 768px) 100vw, 33vw',
-                      widths: '300, 450, 600, 900',
-                      alt: collection.title,
-                      class: 'tw:w-full tw:h-full tw:object-cover tw:transition'
-                  }}
-                {% else %}
-                  {{ 'collection-1' | placeholder_svg_tag }}
-                {% endif %}
-              </div>
+          <a
+            href="{{ collection.url }}"
+            class="tw:flex tw:flex-col tw:gap-4 tw:justify-between tw:rounded-lg tw:shadow-sm tw:border tw:border-gray-200 tw:hover:shadow-md tw:transition"
+          >
+            <div class="tw:w-full tw:overflow-hidden tw:bg-gray-100 tw:rounded-md tw:flex tw:shrink-0">
+              {% if collection.image %}
+                {{
+                  collection.image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '(max-width: 768px) 100vw, 33vw',
+                    widths: '300, 450, 600, 900',
+                    alt: collection.title,
+                    class: 'tw:w-full tw:h-full tw:object-cover tw:transition'
+                }}
+              {% else %}
+                {{ 'collection-1' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
 
-              <div class="tw:flex tw:flex-col tw:items-center tw:w-full">
-                <h2 class="tw:text-h2-mobile tw:leading-8 tw:md:text-h2 tw:md:leading-h2 tw:mb-2! tw:text-center">
-                  {{ collection.title }}
-                </h2>
+            <div class="tw:flex tw:flex-col tw:items-center tw:w-full">
+              <h3 class="tw:text-h2-mobile tw:leading-8 tw:md:text-h2 tw:md:leading-h2 tw:mb-2! tw:text-center">
+                {{ collection.title }}
+              </h3>
 
-                {% if collection.description != blank %}
-                  <p class="tw:text-gray-700 tw:text-body-lg tw:leading-body-lg tw:mb-4! tw:text-center">
-                    {{ collection.description | strip_html | truncate: 100 }}
-                  </p>
-                {% endif %}
+              {% if collection.description != blank %}
+                <p class="tw:text-gray-700 tw:text-body-lg tw:leading-body-lg tw:mb-4! tw:text-center">
+                  {{ collection.description | strip_html | truncate: 100 }}
+                </p>
+              {% endif %}
 
-                <span class="tw:text-body-md tw:leading-body-md tw:text-gray-700">
-                  {{ collection.all_products_count }}
-                  {{ 'products.product.goods' | t: default: 'goods' }}
-                </span>
-                <span
-                  class="tw:flex tw:justify-center tw:items-center tw:mt-auto! tw:p-3 tw:w-full tw:bg-black tw:text-white tw:rounded-lg tw:hover:bg-gray-800 tw:transition"
-                >
-                  {{ section.settings.button_label }}
-                </span>
-              </div>
-            </a>
-          {% endif %}
+              <span class="tw:text-body-md tw:leading-body-md tw:text-gray-700">
+                {{ collection.all_products_count }}
+                {{ 'products.product.goods' | t: default: 'goods' }}
+              </span>
+              <span
+                class="tw:flex tw:justify-center tw:items-center tw:mt-auto! tw:p-3 tw:w-full tw:bg-black tw:text-white tw:rounded-lg tw:hover:bg-gray-800 tw:transition"
+              >
+                {{ section.settings.button_label }}
+              </span>
+            </div>
+          </a>
         {%- endfor -%}
       </div>
     {% endif %}

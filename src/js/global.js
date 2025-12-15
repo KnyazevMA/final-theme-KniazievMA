@@ -93,6 +93,8 @@ function initProductUI() {
 
     document.querySelectorAll('form[action="/cart/add"]')
         .forEach(form => new ProductForm(form));
+
+    new SizeGuide();
 }
 
 function updateMiniCartCount() {
@@ -556,7 +558,6 @@ class RemoveFromCart {
 
 document.addEventListener('DOMContentLoaded', () => {
     new ProductPageLoader();
-    new SizeGuide();
     new RemoveFromCart(document);
     new DataActiveToggle('[data-toggle-active]');
     new FooterAccordion('[data-toggle-active]');

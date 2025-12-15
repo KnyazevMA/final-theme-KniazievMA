@@ -6,7 +6,7 @@
       <legend class="tw:mb-3! tw:text-body-md tw:leading-body-md">{{ legend }}</legend>
     {% endif %}
     {% for item in related_colors %}
-      {% assign p = item | product %}
+      {% assign p = item %}
 
       {% if p.featured_image %}
         {% assign is_active = false %}

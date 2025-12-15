@@ -11,7 +11,7 @@
         type="button"
         class="tw:absolute tw:top-2.5 tw:right-2.5 tw:md:top-4 tw:md:right-6 tw:cursor-pointer"
         data-size-guide-close
-        aria-label="Close size guide"
+        aria-label="{{ 'a11y.close_modal' | t: default: 'Close modal window' }}"
       >
         ✕
       </button>
@@ -25,16 +25,14 @@
           <tbody>
             {% for row in guide.rows.value %}
               <tr class="tw:flex tw:justify-center tw:items-center">
-                <!-- Лейбл строки -->
                 <td class="tw:p-2 tw:mr-2! tw:w-36 tw:flex tw:items-center tw:justify-center tw:text-body-lg tw:leading-body-lg">
                   {{ row.label }}
                 </td>
 
-                <!-- Значения -->
                 {% for val in row.value.value %}
                   <td
                     class="
-                      tw:p-2 tw:w-13 tw:md:w-25 tw:flex tw:flex-row tw:items-center tw:justify-center tw:text-body-lg tw:leading-body-lg
+                                            tw:p-2 tw:w-13 tw:md:w-25 tw:flex tw:flex-row tw:items-center tw:justify-center tw:text-body-lg tw:leading-body-lg
                     "
                   >
                     {{ val }}

@@ -1,21 +1,35 @@
-<section id="shopify-section-{{ section.id }}" class="collection tw:py-10 tw:px-4">
+<section id="shopify-section-{{ section.id }}" class="tw:py-10 tw:px-4">
   <div class="page-width">
     <h1 class="tw:text-4xl tw:font-bold tw:text-center tw:mb-6!">
       {{ collection.title }}
     </h1>
 
-    {% if collection.description != blank %}
+    {% if section.settings.show_description and collection.description != blank %}
       <div class="tw:max-w-3xl tw:mx-auto! tw:mb-10! tw:text-center">
         {{ collection.description | strip_html | strip }}
       </div>
     {% endif %}
 
-    <div class="collection-grid tw:grid tw:gap-8 tw:grid-cols-1 tw:sm:grid-cols-2 tw:lg:grid-cols-4">
+    <div class="tw:grid tw:gap-8 tw:grid-cols-1 tw:sm:grid-cols-2 tw:lg:grid-cols-4">
       {% for product in collection.products %}
         {% render 'product-card', product: product, settings: section.settings %}
       {% else %}
-        <p class="tw:text-center tw:col-span-full tw:py-20 tw:text-xl">Товарів немає 😔</p>
+        <p class="tw:text-center tw:col-span-full tw:py-20 tw:text-xl">{{ 'collections.no_products' | t:default:'No products found' }}</p>
       {% endfor %}
     </div>
   </div>
 </section>
+
+{% schema %}
+{
+  "name": "Collection grid",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show collection description",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

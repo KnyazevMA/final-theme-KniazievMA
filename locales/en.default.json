@@ -16,7 +16,8 @@
     "open_menu": "Open menu",
     "swiper_prev": "Button to scroll carousel backward",
     "swiper_next": "Button to scroll carousel forward",
-    "product_image": "Product image"
+    "product_image": "Product image",
+    "close_modal": "Close modal window"
   },
   "404": {
     "title": "404",
@@ -53,7 +54,9 @@
     }
   },
   "collections": {
-    "title": "Collections"
+    "title": "Collections",
+    "no_products": "No products found",
+    "empty": "Оберіть колекції в налаштуваннях секції"
   },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",
@@ -90,6 +93,10 @@
       "sold_out": "Sorry, this product is out of stock",
       "size_guide": "Size guide",
       "goods": "goods",
+      "size_fit": "SIZE & FIT",
+      "product_notes": "PRODUCT NOTES",
+      "delivery_returns": "DELIVERY & RETURNS"
+
     }
   }
 }

@@ -221,6 +221,33 @@
       "type": "rating",
       "name": "Rating",
       "limit": 1,
+        "settings": [
+          {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margin bottom",
+          "min": 0,
+          "max": 32,
+          "step": 2,
+          "unit": "px",
+          "default": 14
+        }
+      ]
+    },
+    {
+      "type": "rating",
+      "name": "Rating",
+      "limit": 1,
       "settings": [
         {
           "type": "range",
@@ -373,33 +400,6 @@
           "id": "size_label",
           "label": "Size label",
           "default": "Select Size:"
-        }
-      ]
-    },
-    {
-      "type": "quantity",
-      "name": "Quantity",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "range",
-          "id": "margin_top",
-          "label": "Margin top",
-          "min": 0,
-          "max": 32,
-          "step": 2,
-          "unit": "px",
-          "default": 0
-        },
-        {
-          "type": "range",
-          "id": "margin_bottom",
-          "label": "Margin bottom",
-          "min": 0,
-          "max": 32,
-          "step": 2,
-          "unit": "px",
-          "default": 8
         }
       ]
     },

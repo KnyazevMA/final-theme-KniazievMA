@@ -50,6 +50,8 @@
     --tw-default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --tw-default-font-family: var(--tw-font-sans);
     --tw-default-mono-font-family: var(--tw-font-mono);
+    --tw-text-h1: 48px;
+    --tw-leading-h1: 48px;
     --tw-text-h2: 30px;
     --tw-text-h2--mobile: 24px;
     --tw-leading-h2: 36px;
