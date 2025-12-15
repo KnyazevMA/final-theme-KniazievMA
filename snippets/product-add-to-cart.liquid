@@ -1,6 +1,6 @@
 {%- assign variant_id = selected_variant_id -%}
 
-<div class="block-{{ block.id }}">
+<div class="block-{{ block.id }} tw:flex tw:flex-col tw:gap-2">
   <button
     type="submit"
     class="
@@ -17,5 +17,10 @@
     Add to bag
   </button>
 
-  <div class="tw:hidden" id="add-to-cart-error"></div>
+  <div
+    id="add-to-cart-error"
+    class="tw:hidden tw:text-body-lg tw:leading-body-lg"
+  >
+    {{ 'products.product.select_size' | t | default: 'Select size' }}
+  </div>
 </div>

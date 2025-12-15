@@ -90,6 +90,9 @@ function initProductUI() {
 
     document.querySelectorAll('[data-section="product-recommendations"]')
         .forEach(el => new ProductRecommendationsSection(el));
+
+    document.querySelectorAll('form[action="/cart/add"]')
+        .forEach(form => new ProductForm(form));
 }
 
 class ProductPageLoader {
@@ -272,12 +275,26 @@ class ProductForm {
     constructor(form) {
         this.form = form;
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.sizeInputs = this.form.querySelectorAll('input[name="size"]');
+        this.variantInput = this.form.querySelector('input[name="id"]');
+        this.errorEl = this.form.querySelector('#add-to-cart-error');
 
         this.form.addEventListener('submit', this.handleSubmit);
     }
 
     async handleSubmit(event) {
         event.preventDefault();
+
+        const selectedSize = [...this.sizeInputs].find(i => i.checked);
+        if (!selectedSize) {
+            this.errorEl.classList.remove('tw:hidden');
+            return;
+        }
+        this.errorEl.classList.add('tw:hidden');
+
+        const variantId = selectedSize.dataset.variantId;
+        if (!variantId) return;
+        this.variantInput.value = variantId;
 
         const formData = new FormData(this.form);
 
